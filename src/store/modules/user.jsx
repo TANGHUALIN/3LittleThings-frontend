@@ -6,29 +6,21 @@ const userStore=createSlice(
         name:"user",
         initialState:{
             token:getToken||'',
-            uid:{},
-            diaryList:{},
-            classificationList:{}
+            uid:{},  
         },
         reducers:{
             setToken(state,action){
-                state.token=action.payload
-                setTokenInLocal(action.payload)
+                state.token=action.payload.token
+                setTokenInLocal(action.payload.token)
             }
             ,setUserInfo(state,action){
                 state.uid=action.payload.uid
-                state.diaryList=action.payload.diaryList
-                state.classificationList=action.payload.classificationList
             }
             ,clearUserInfo(state){
                 state.token=''
                 state.uid={}
-                state.diaryList={}
-                state.classificationList={}
                 removeToken()
             }
-
-
         }
     }
 )
@@ -47,12 +39,6 @@ const fetchUserInfo=()=>{
         dispatch(setUserInfo(res.data))
     }
 }
-
-
-
-
-
-
 
 export{  fetchUserInfo,fetchLogin,setToken,clearUserInfo}
 export default userReducer
