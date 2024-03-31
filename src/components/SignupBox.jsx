@@ -14,58 +14,75 @@ const SignupBox = () => {
   const [type, setType] = useState("");
 
   const onFinish = async (value) => {
-    try {
-      const resp = await signupAPI(value);
-      setStatus(resp.status);
-      const result = messageType();
-      setAlertMsg(result.alertMsg);
-      setDetailedMsg(result.detailedMsg);
-      setType(result.type);
-      setShowAlert(true);
-    } catch (error) {
-      console.error("Signup failed:", error);
-    }
-  };
-  const onClose = (e) => {
-    console.log(e, 'I was closed.');
-  };
+    try{
+  const resp = await signupAPI(value)
+   console.log("resp info:",resp)
+   const statusCode=parseInt(resp.status)
+   setStatus(statusCode)
+   console.log("status,"+statusCode)
+   const result = messageType(statusCode)
+   console.log(result)
+   setAlertMsg(result.alertMsg)
+   setDetailedMsg(result.detailedMsg)
+   setType(result.type)
+   console.log(result.type)
+   setShowAlert(true)
+   console.log(showAlert)
+    }catch (error) {
+          const statusCode=error.response.status;
+          setStatus(parseInt(statusCode))
+          console.log("status,"+statusCode)
+          const result = messageType(statusCode)
+          setAlertMsg(result.alertMsg)
+          setDetailedMsg(result.detailedMsg)
+          setType(result.type)
+          console.log(result.type)
+          setShowAlert(true)
+          console.log(showAlert)
+        }
+   }
+    
 
-  const messageType = () => {
-    switch (status) {
+  const messageType = (statusCode) => {
+    switch (statusCode) {
       case 202:
         return {
           type: "success",
           alertMsg: t('signupSuccessMsg'),
           detailedMsg: t('signupSuccessDetailedMsg'),
-        };
+        }
       case 409:
         return {
             type: "error",
             alertMsg: t('signupFailMsg'),
             detailedMsg: t('emailRegisteredMsg'),
-          };
+        }
+      case 429:
+          return {
+              type: "error",
+              alertMsg: t('signupFailMsg'),
+              detailedMsg: t('signupTwiceMsg'),
+          }
       case 500:
         return {
           type: "error",
           alertMsg: t('signupFailMsg'),
           detailedMsg: t('serverErrorMsg'),
-        };
+        }
       default:
         return {
           type: "error",
           alertMsg: t('signupFailMsg'),
           detailedMsg: t('signupUnknownErrorMsg'),
-        };
+        }
     }
-  };
+  }
 
   return (
     <div>
       {showAlert && <AlertBox alertMsg={alertMsg} detailedMsg={detailedMsg} type={type} />}
       <Form
         onFinish={onFinish}
-        closable
-        onClose={onClose}
         validateTrigger="onBlur"
         autoComplete="off"
         name="signupForm"

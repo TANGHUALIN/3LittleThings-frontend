@@ -9,12 +9,6 @@ import SampleDiaries from "../components/sampleDiaries"
 import SignupBox from "../components/SignupBox"
 const TopPage=()=>{
     return <div>this is toppage
-
-<SiteTitle />
-<App />
-<SideNav />
-<HeadNav />
-<ClassificationPulldown />
 <SignupBox />
     </div>
 

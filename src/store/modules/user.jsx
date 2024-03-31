@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { request,setToken as setTokenInLocal,getToken } from "../../utils";
-import { loginAPI, getUidAndDiaryAPI } from "../../apis/userAPI";
+import { verifyAPI, getUidAPI } from "../../apis/userAPI";
+import { useDispatch } from "react-redux";
 const userStore=createSlice(
     {
         name:"user",
         initialState:{
             token:getToken||'',
-            uid:{},
-            diaryList:{},
-            classificationList:{}
+            uid:'',  
         },
         reducers:{
             setToken(state,action){
@@ -16,43 +15,36 @@ const userStore=createSlice(
                 setTokenInLocal(action.payload)
             }
             ,setUserInfo(state,action){
-                state.uid=action.payload.uid
-                state.diaryList=action.payload.diaryList
-                state.classificationList=action.payload.classificationList
+                state.uid=action.payload
             }
             ,clearUserInfo(state){
                 state.token=''
                 state.uid={}
-                state.diaryList={}
-                state.classificationList={}
                 removeToken()
             }
-
-
         }
     }
 )
 const {setToken,setUserInfo,clearUserInfo}=userStore.actions
 const userReducer=userStore.reducer
 
-const fetchLogin=(loginForm)=>{
-    return async()=>{
-        const res=await loginAPI(loginForm)
-        dispatch(setToken(res.data.token))
+const fetchLogin=(temptoken)=>{
+    return async(dispatch)=>{
+        const res=await verifyAPI(temptoken)
+        console.log("res.headers,",res.headers)
+        console.log("res auth,",res.headers['authorization'])
+        console.log("token",res.headers['authorization'].split(' ')[1])
+        dispatch(setToken(res.headers['authorization'].split(' ')[1]))
+        dispatch(setUserInfo(res.data.uid))
+        console.log("uid",res.data.uid)
     }
 }
 const fetchUserInfo=()=>{
     return async()=>{
-        const res=await getUidAndDiaryAPI()
+        const res=await getUidAPI()
         dispatch(setUserInfo(res.data))
     }
 }
-
-
-
-
-
-
 
 export{  fetchUserInfo,fetchLogin,setToken,clearUserInfo}
 export default userReducer

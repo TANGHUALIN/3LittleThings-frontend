@@ -49,6 +49,7 @@ i18n
                     signupFailMsg:'Registration failed',
                     emailRegisteredMsg:'This email has already been registered. Please return to the toppage to log in.',
                     serverErrorMsg:'Server error occurred. Please try again later.',
+                    signupTwiceMsg:'Please do not attempt to register repeatedly within five minutes. Check your email and click the link to complete registration. If you have not received the email, please try again in five minutes.',
                 },
             },
             jp:{
@@ -93,7 +94,8 @@ i18n
                     signupFailMsg:'登録失敗',
                     emailRegisteredMsg:'このメールアドレスはすでに登録されています。トップページに戻ってログインしてください。',
                     serverErrorMsg:'サーバーエラーが発生しました。しばらくしてからもう一度お試しください。',
-                    signupUnknownErrorMsg:'未知のエラー'
+                    signupUnknownErrorMsg:'未知のエラー',
+                    signupTwiceMsg:'5分間以内に繰り返し登録しないでください。メールを確認し、リンクをクリックして登録を完了してください。メールが届かない場合は、5分後に再試行してください。',
                 },
             },
 

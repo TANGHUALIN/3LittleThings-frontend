@@ -68,7 +68,7 @@ const LoginBox = () => {
     </div>
 
     <Button
-        htmlType="submit"
+        htmlType="submit" 
         >
      { t('submit')}
       </Button>

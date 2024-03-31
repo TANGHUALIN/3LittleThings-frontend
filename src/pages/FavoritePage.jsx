@@ -1,8 +1,7 @@
 const FavoritePage=()=>{
-    return 
-    <div>
+    return (    <div>
         this is favorite page
    
-    </div>
+    </div>)
 }
 export default FavoritePage
