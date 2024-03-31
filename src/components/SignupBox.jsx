@@ -14,31 +14,34 @@ const SignupBox = () => {
   const [type, setType] = useState("");
 
   const onFinish = async (value) => {
-    try {
-      const resp = await signupAPI(value)
-      console.log("resp info:"+resp)
-      setStatus(parseInt(resp.status))
-      console.log("status,"+resp.status)
-      const result = messageType(statusCode)
-      setAlertMsg(result.alertMsg)
-      setDetailedMsg(result.detailedMsg)
-      setType(result.type)
-      console.log(result.type)
-      setShowAlert(true)
-      console.log(showAlert)
-    } catch (error) {
-      const statusCode=error.response.status;
-      setStatus(parseInt(statusCode))
-      console.log("status,"+statusCode)
-      const result = messageType(statusCode)
-      setAlertMsg(result.alertMsg)
-      setDetailedMsg(result.detailedMsg)
-      setType(result.type)
-      console.log(result.type)
-      setShowAlert(true)
-      console.log(showAlert)
-    }
-  }
+    try{
+  const resp = await signupAPI(value)
+   console.log("resp info:",resp)
+   const statusCode=parseInt(resp.status)
+   setStatus(statusCode)
+   console.log("status,"+statusCode)
+   const result = messageType(statusCode)
+   console.log(result)
+   setAlertMsg(result.alertMsg)
+   setDetailedMsg(result.detailedMsg)
+   setType(result.type)
+   console.log(result.type)
+   setShowAlert(true)
+   console.log(showAlert)
+    }catch (error) {
+          const statusCode=error.response.status;
+          setStatus(parseInt(statusCode))
+          console.log("status,"+statusCode)
+          const result = messageType(statusCode)
+          setAlertMsg(result.alertMsg)
+          setDetailedMsg(result.detailedMsg)
+          setType(result.type)
+          console.log(result.type)
+          setShowAlert(true)
+          console.log(showAlert)
+        }
+   }
+    
 
   const messageType = (statusCode) => {
     switch (statusCode) {
@@ -54,6 +57,12 @@ const SignupBox = () => {
             alertMsg: t('signupFailMsg'),
             detailedMsg: t('emailRegisteredMsg'),
         }
+      case 429:
+          return {
+              type: "error",
+              alertMsg: t('signupFailMsg'),
+              detailedMsg: t('signupTwiceMsg'),
+          }
       case 500:
         return {
           type: "error",

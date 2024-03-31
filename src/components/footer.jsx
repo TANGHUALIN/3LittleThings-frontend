@@ -1,5 +1,7 @@
+import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 const FooterWithAboutUs=()=>{
+    const {t}=useTranslation()
     const navigate=useNavigate()
     const onClick=(e)=>{
         navigate('/aboutsite')

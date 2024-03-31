@@ -1,11 +1,13 @@
 //ユーザに関するリクエスト
 import { request } from "../utils";
-export function loginAPI(formData){
+export function verifyAPI(temptoken){
     return request({
-        url:'/login',
-        method:'POST',
-        data:formData
-    })
+        url: '/verify',
+        method: 'GET',
+        params: {
+            token: temptoken // 将 token 参数作为查询参数添加到 URL 中
+        }
+    });
 }
 export function signupAPI(formData){
     return request({
@@ -15,7 +17,7 @@ export function signupAPI(formData){
     })
 }
 
-export function getUidAndDiaryAPI(){
+export function getUidAPI(){
     return request(
         {
             url:'/newDiary',

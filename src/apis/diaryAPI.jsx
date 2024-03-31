@@ -2,7 +2,7 @@
 import { request } from "../utils";
 export function getDiaryAPI(formData){
     return request({
-        url:'/',
+        url:'/diary',
         method:'POST',
         data:formData
     })

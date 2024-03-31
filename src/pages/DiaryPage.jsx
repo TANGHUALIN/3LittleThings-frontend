@@ -6,8 +6,7 @@ const DiaryPage=()=>{
     const[favoriteState,setFavoriteState]=useState([])
 
 
-    return 
-    <div>
+    return (    <div>
         this is diarypage
     {/*<Diary>
        {diaryList.map(item=>
@@ -17,6 +16,6 @@ const DiaryPage=()=>{
         </div>)}
        </Diary>*/}
 
-    </div>
+    </div>)
 }
 export default DiaryPage
