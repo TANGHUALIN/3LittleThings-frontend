@@ -44,7 +44,7 @@ return(
       <Header style={headerStyle}>
         <div className="flex ml-10 mt-8">
       <SiteTitle />
-      <div className="ml-auto">header</div>
+      <div className="ml-auto"><HeadNav /></div>
         
         </div> 
       </Header>

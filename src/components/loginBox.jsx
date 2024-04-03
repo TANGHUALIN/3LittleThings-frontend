@@ -52,6 +52,7 @@ const LoginBox = () => {
         
         >
 <Input.Password
+  className="w-60 h-14 bg-black bg-opacity-10 rounded-lg mb-4 pl-4"
   placeholder={t('password')}
   prefix={<KeyOutlined />}
   iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
@@ -61,9 +62,9 @@ const LoginBox = () => {
 
 <div className="flex items-center">
       <div className="lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">Sign up</a>
+        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">{t('signup')}</a>
         <span className="h-4 w-px bg-gray-200" aria-hidden="true"></span>
-        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">Forgot password?</a>
+        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">{t('forgotPassword')}</a>
       </div>
     </div>
 

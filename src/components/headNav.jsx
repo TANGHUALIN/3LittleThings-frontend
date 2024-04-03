@@ -28,10 +28,10 @@ useEffect(()=>{
 },[uid])
 
 
-const { t } = useTranslation();
-const [currentLanguage,setCurrentLanguage]=useState(t.language);
+const { t,i18n } = useTranslation();
+const [currentLanguage,setCurrentLanguage]=useState(i18n.language);
 const changeLanguage=(lang)=>{
-  t.changeLanguage(lang);
+  i18n.changeLanguage(lang);
   setCurrentLanguage(lang);
 }
 
@@ -62,13 +62,14 @@ const onClick = (e) => {
   }
 };
 const items = [
-    getItem(t('theme'), '1',null),
+    getItem(t('theme'), 'theme',null),
     getItem(
-        (<div className={classNames(buttonClass)}>{t('language')}</div>), 'languageNow',null,
-        [getItem(t('language'),'languageSub1',null),
+        (t('language')), 'language',null,
+        [getItem('English','en',null),
+        getItem('日本語','jp',null),
         ]
     ),
-    accountItem&&getItem((<Popconfirm
+    accountState&&getItem((<Popconfirm
       title={t('logoutConfirmMsg')}
       onConfirm={onConfirm}
       okText={t('yes')}
