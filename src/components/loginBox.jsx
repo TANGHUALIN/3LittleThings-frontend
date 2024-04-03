@@ -23,7 +23,7 @@ const LoginBox = () => {
     return (
     <Form onFinish={onFinish}
     validateTrigger="onBlur"
-    className="mt-[15rem] w-96 h-96 bg-slate-600 rounded-2xl flex flex-col items-center justify-center">
+    className=" w-96 h-96 bg-slate-600 rounded-2xl flex flex-col items-center justify-center">
     <Form.Item
     name="email"
             rules={[

@@ -88,6 +88,7 @@ const SignupBox = () => {
         name="signupForm"
         className="mt-[15rem] w-96 h-96 bg-slate-600 rounded-2xl flex flex-col items-center justify-center"
       >
+        <div className="font-2xl text-white">{t('signup')}</div>
         <Form.Item
           name="email"
           rules={[
@@ -113,7 +114,7 @@ const SignupBox = () => {
           rules={[
             {
               required: true,
-              message: t('enterPasswordAgainMsg'), // 如果未输入，则显示此消息
+              message: t('enterPasswordAgainMsg'), 
             },
             ({ getFieldValue }) => ({
               validator(_, value) {

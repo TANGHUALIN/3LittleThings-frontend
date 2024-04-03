@@ -5,7 +5,7 @@ export function verifyAPI(temptoken){
         url: '/verify',
         method: 'GET',
         params: {
-            token: temptoken // 将 token 参数作为查询参数添加到 URL 中
+            token: temptoken
         }
     });
 }
@@ -20,7 +20,7 @@ export function signupAPI(formData){
 export function getUidAPI(){
     return request(
         {
-            url:'/newDiary',
+            url:'/uid',
             method:'GET',
         }
     )
