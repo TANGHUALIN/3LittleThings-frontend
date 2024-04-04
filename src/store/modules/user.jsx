@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { request,setToken as setTokenInLocal,getToken } from "../../utils";
-import { verifyAPI, getUidAPI } from "../../apis/userAPI";
+import { verifyAPI, getUidAPI, loginAPI } from "../../apis/userAPI";
 import { useDispatch } from "react-redux";
 const userStore=createSlice(
     {
@@ -28,7 +28,7 @@ const userStore=createSlice(
 const {setToken,setUserInfo,clearUserInfo}=userStore.actions
 const userReducer=userStore.reducer
 
-const fetchLogin=(temptoken)=>{
+const fetchVerify=(temptoken)=>{
     return async(dispatch)=>{
         const res=await verifyAPI(temptoken)
         console.log("res.headers,",res.headers)
@@ -39,6 +39,13 @@ const fetchLogin=(temptoken)=>{
         console.log("uid",res.data.uid)
     }
 }
+const fetchLogin=(formData)=>{
+    return async(dispatch)=>{
+        const res =await loginAPI(formData)
+        dispatch(setToken(res.headers['authorization'].split(' ')[1]))
+        dispatch(setUserInfo(res.data.uid))
+    }
+}
 const fetchUserInfo=()=>{
     return async()=>{
         const res=await getUidAPI()
@@ -46,5 +53,5 @@ const fetchUserInfo=()=>{
     }
 }
 
-export{  fetchUserInfo,fetchLogin,setToken,clearUserInfo}
+export{  fetchUserInfo,fetchVerify,fetchLogin,setToken,clearUserInfo}
 export default userReducer

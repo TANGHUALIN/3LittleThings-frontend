@@ -29,9 +29,6 @@ request.interceptors.response.use(function (response) {
         removeToken()
         router.navigate('/')
         window.location.reload()
-    }else if(statusCode===404){
-        router.navigate('/notfound')
-        window.location.reload()
     }
     return Promise.reject(error)
 });

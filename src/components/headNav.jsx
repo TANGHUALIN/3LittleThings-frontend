@@ -3,7 +3,7 @@ import { useEffect,useState } from "react"
 import { clearUserInfo, fetchUserInfo } from "../store/modules/user"
 import { useSelector } from "react-redux"
 import { getItem } from "../utils"
-import { Menu,Popconfirm } from "antd"
+import { ConfigProvider, Menu,Popconfirm } from "antd"
 import { useTranslation } from "react-i18next"
 import classNames from "classnames"
 import { useNavigate } from "react-router-dom"
@@ -17,21 +17,24 @@ dispatch(fetchUserInfo())
 )
 const uid=useSelector(state=>state.user.uid)
 
-const { t } = useTranslation();
-const [currentLanguage,setCurrentLanguage]=useState('jp');
+const[accountState,setAccountState]=useState(false)
 
-const changeLanguage=()=>{
-  const nextLanguage=currentLanguage==='jp'?'en':'jp';
-  t.changeLanguage(nextLanguage);
-  setCurrentLanguage(nextLanguage);
-};
-
-const buttonClass=(language)=>classnames(
-  {
-      'current':currentLanguage===language,
-      'notCurrent':currentLanguage!==language,
+useEffect(()=>{
+  if(uid){
+    setAccountState(true)
+  }else{
+    setAccountState(false)
   }
-)
+},[uid])
+
+
+const { t,i18n } = useTranslation();
+const [currentLanguage,setCurrentLanguage]=useState(i18n.language);
+const changeLanguage=(lang)=>{
+  i18n.changeLanguage(lang);
+  setCurrentLanguage(lang);
+}
+
 
 const onConfirm=()=>{
     console.log('log out')
@@ -45,40 +48,81 @@ const onClick = (e) => {
 
   }else{
     setCurrent(e.key)
+    switch(e.key){
+      case 'jp':
+        changeLanguage('jp')
+        break
+      case 'en':
+        changeLanguage('en')
+        break
+      default:
+        break
+
+    }
   }
 };
 const items = [
-    getItem(t('theme'), '1',null),
+    getItem(t('theme'), 'theme',null),
     getItem(
-        (<div className={classNames(buttonClass)}>{t('language')}</div>), 'languageNow',null,
-        [getItem(t('language'),'languageSub1',null),
+        (t('language')), 'language',null,
+        [getItem('English','en',null),
+        getItem('日本語','jp',null),
         ]
     ),
-    getItem(
-        (<Popconfirm
-            title={t('logoutConfirmMsg')}
-            onConfirm={onConfirm}
-            okText={t('yes')}
-            cancelText={t('no')}>
-           { t('account')}
-            </Popconfirm>
-        ),
-
-
-        '3',
-        null,
-        [getItem(t('changePassword'),'change_password',null),
-        getItem(t('logout'),'logout',null)
-        ]
+    accountState&&getItem((<Popconfirm
+      title={t('logoutConfirmMsg')}
+      onConfirm={onConfirm}
+      okText={t('yes')}
+      cancelText={t('no')}>
+     { t('account')}
+      </Popconfirm>
+  ),
+  
+  
+  '3',
+  null,
+  [getItem(t('changePassword'),'change_password',null),
+  getItem(t('logout'),'logout',null)
+  ]
+  
+       
       ),
-    ];
+    ].filter(Boolean);
 return(
-    <Menu
+  <ConfigProvider
+  theme={{
+    token: {
+      borderRadius: 0,
+      fontSize:20,
+    },
+   
+    components: {
+      Menu: {
+       itemBg:'#FFFFFF',
+       itemHoverBg:'rgb(239, 248, 251,0.4)',
+       horizontalItemHoverColor:'#523333',
+       popupBg:'rgb(240, 249, 254,0.8)',
+       horizontalItemHoverBg:'rgb(240, 249, 254,0.9)',
+       itemBorderRadius:0,
+       dropdownWidth:50,
+       itemColor:'#55769D',
+       itemHoverColor:'#98CCD3',
+      },
+     
+    },
+    
+  }}
+  
+  >
+    <Menu 
     onClick={onClick}
     selectedKeys={[current]}
     mode="horizontal"
     items={items}
+    className=""
+
   />
+  </ConfigProvider>
 )
 }
 export default HeadNav

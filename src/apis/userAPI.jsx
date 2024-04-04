@@ -2,10 +2,10 @@
 import { request } from "../utils";
 export function verifyAPI(temptoken){
     return request({
-        url: '/verify',
+        url: '/login',
         method: 'GET',
         params: {
-            token: temptoken // 将 token 参数作为查询参数添加到 URL 中
+            token: temptoken
         }
     });
 }
@@ -16,11 +16,17 @@ export function signupAPI(formData){
         data:formData
     })
 }
-
+export function loginAPI(formData){
+    return request({
+        url:'/login',
+        method:'POST',
+        data:formData
+    })
+}
 export function getUidAPI(){
     return request(
         {
-            url:'/newDiary',
+            url:'/uid',
             method:'GET',
         }
     )
