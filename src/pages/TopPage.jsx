@@ -13,13 +13,14 @@ import SampleTimeline from "../components/timeline"
 import { useTranslation } from "react-i18next"
 import { processContentReturnP } from "../utils"
 import LoginBox from "../components/loginBox"
+import { useState } from "react"
 const { Header, Footer,Content } = Layout;
 const TopPage=()=>{
     const headerStyle = {
         height: 150,
         paddingInline: 48,
         lineHeight: '64px',
-        backgroundColor: '#132238',
+        backgroundColor: '#FFFFFF',
     };
     const layoutStyle={
         height: '100%'
@@ -29,18 +30,25 @@ const TopPage=()=>{
         minHeight: 120,
         lineHeight: '120px',
         color: '#fff',
-        backgroundColor: '#132238',
+        backgroundColor: '#FFFFFF',
     };
     const footerStyle = {
         textAlign: 'center',
         color: '#fff',
-        backgroundColor: '#132238',
+        backgroundColor: '#FFFFFF',
     };
     const {t}=useTranslation()
     const introductionMsg=processContentReturnP(t('introductionMsg'))
     const welcomeMsg=processContentReturnP(t('welcomeMsg'))
+    const [signupDisplay,setSignupDisplay]=useState(false)
+    const showSignupBox=()=>{
+      setSignupDisplay(true)
+    }
+    const closeSignupBox=()=>{
+        setSignupDisplay(false)
+    }
 return(
-    <Layout style={layoutStyle}>
+    <Layout style={layoutStyle} className="font-noto-jp">
       <Header style={headerStyle}>
         <div className="flex ml-10 mt-8">
       <SiteTitle />
@@ -49,39 +57,36 @@ return(
         </div> 
       </Header>
 
-
-
-
-
-
-
-
       <Content style={contentStyle}>
+      {signupDisplay&&<SignupBox closeSignupBox={closeSignupBox}/>}
         {/*sample diaries and introduction block start*/ }
-        <div className="flex">
-        <div className="ml-10 w-2/3 p-10"> <SampleDiaries />
-        <div className="ml-10 w-2/3  justify-center items-center">
+        <div className="flex ">
+    
+        <div className="flex flex-col ml-10 w-2/3 p-10 mb-0
+        "> <div><SampleDiaries /></div>
+         <div className="ml-5 text-2xl mt-0">
         {introductionMsg}</div>
         </div>
-         {/**/ }
 
-         {/**/ }
-         
-        <div className="flex-auto mr-36">
-        <div className=" text-slate-100 text-4xl">
+         <div className="flex flex-col items-center justify-center h-full">
+        <div className="flex-auto items-center">
+        <div className="w-4/5 justify-center ml-5 text-3xl mb-5">
         {welcomeMsg}
         </div>
-        <LoginBox />
-         {/**/ }
-        
-         {/**/ }
-        </div>
-    
+    <div className="ml-16 justify-center">
+      <LoginBox showSignupBox={showSignupBox}/>
+    </div>
+  </div>
+</div>
+
+
         </div> 
 
       </Content>
 
-      <Footer style={footerStyle}><FooterWithAboutUs /></Footer>
+      <Footer style={footerStyle}
+      className="flex items-center justify-center"
+      ><FooterWithAboutUs /></Footer>
     </Layout>
 )
 

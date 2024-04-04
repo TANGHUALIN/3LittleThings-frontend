@@ -98,20 +98,15 @@ return(
    
     components: {
       Menu: {
-       itemBg:'#132238',
+       itemBg:'#FFFFFF',
        itemHoverBg:'rgb(239, 248, 251,0.4)',
        horizontalItemHoverColor:'#523333',
-       popupBg:'rgb(240, 249, 254,0.2)',
-       horizontalItemHoverBg:'rgb(240, 249, 254,0.2)',
+       popupBg:'rgb(240, 249, 254,0.8)',
+       horizontalItemHoverBg:'rgb(240, 249, 254,0.9)',
        itemBorderRadius:0,
        dropdownWidth:50,
-       itemColor:'#98CCD3',
+       itemColor:'#55769D',
        itemHoverColor:'#98CCD3',
-        
-     
-
-
-
       },
      
     },

@@ -7,9 +7,9 @@ const FooterWithAboutUs=()=>{
         navigate('/aboutsite')
     }
     return(
-        <div className="w-80 h-10  text-zinc-600 text-2xl font-normal content-center">
+        <div className="w-full  text-zinc-800 font-normal content-center text-base mb-0">
             <span>©3LittleThings/</span>
-            <span onClick={onClick}>{t('aboutSite')}</span>
+            <a onClick={onClick} className="text-zinc-800 hover:text-slate-500">{t('aboutSite')}</a>
         </div>
         
     )

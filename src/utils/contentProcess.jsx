@@ -6,7 +6,7 @@ function processContentReturnLi(content) {
 }
 function processContentReturnP(content) {
     const lines = content.split('\n');
-    const contentList = lines.map((line, index) => (<p className="text-left p-0 m-0 text-2xl" key={index}>{line}</p>));
+    const contentList = lines.map((line, index) => (<p className="text-left p-0 m-0  text-slate-500" key={index}>{line}</p>));
     return contentList;
 }
 export{
