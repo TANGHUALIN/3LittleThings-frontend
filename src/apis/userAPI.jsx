@@ -2,7 +2,7 @@
 import { request } from "../utils";
 export function verifyAPI(temptoken){
     return request({
-        url: '/verify',
+        url: '/login',
         method: 'GET',
         params: {
             token: temptoken
@@ -16,7 +16,13 @@ export function signupAPI(formData){
         data:formData
     })
 }
-
+export function loginAPI(formData){
+    return request({
+        url:'/login',
+        method:'POST',
+        data:formData
+    })
+}
 export function getUidAPI(){
     return request(
         {

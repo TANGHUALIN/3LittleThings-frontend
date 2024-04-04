@@ -50,7 +50,10 @@ i18n
                     emailRegisteredMsg:'This email has already been registered. Please return to the toppage to log in.',
                     serverErrorMsg:'Server error occurred. Please try again later.',
                     signupTwiceMsg:'Please do not attempt to register repeatedly within five minutes. Check your email and click the link to complete registration. If you have not received the email, please try again in five minutes.',
-                    introductionMsg:'Record your daily events, inspirations, and thoughts in study, work, and life effortlessly, just like sending messages. Review your past easily in a timeline format.'
+                    introductionMsg:'Record your daily events, inspirations, and thoughts in study, work, and life effortlessly, just like sending messages. Review your past easily in a timeline format.',
+                    loginFailed:'Login failed',
+                    notRegisteredMsg:'This email is not registered.',
+
                 },
             },
             jp:{
@@ -105,7 +108,9 @@ i18n
                     diary1:`友達と一緒にカフェで美味しいケーキを食べながらおしゃべりをした。\n映画を観ました。\n数学の宿題を完成した。`,
                     diary7:`ボランティアをやった。\n子供と一緒にボールを遊んだ。\nカフェで勉強した。`,
                     diary8:`漫画を読んだ。\nお皿を洗った。`,
-                    introductionMsg:`勉強や仕事、生活における日常の出来事、インスピレーション、そして考えを簡単に、メッセージを送るように記録できます。\n過去をタイムライン形で簡単に振り返ることも可能にします。`
+                    introductionMsg:`勉強や仕事、生活における日常の出来事、インスピレーション、そして考えを簡単に、メッセージを送るように記録できます。\n過去をタイムライン形で簡単に振り返ることも可能にします。`,
+                    loginFailed:'ログイン失敗',
+                    notRegisteredMsg:'このメールアドレスは登録されていません。',
 
 
                 },

@@ -9,18 +9,47 @@ import {  useDispatch } from "react-redux";
 import { fetchLogin } from "../store/modules/user";
 import { useNavigate } from "react-router-dom";
 import SignupBox from "./SignupBox";
+import AlertBox from "./alertBox";
 
 
 const LoginBox = ({showSignupBox}) => {
     const { t } = useTranslation();
     const dispatch=useDispatch()
     const navigate=useNavigate()
+    const [status, setStatus] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
+    const [detailedMsg, setDetailedMsg] = useState("");
     const onFinish=async(value)=>{
-      console.log(value)
-      await dispatch(fetchLogin(value))
-      navigate('/diary')
+      try{
+        console.log(value)
+        await dispatch(fetchLogin(value))
+        navigate('/diary')
+      }catch (error) {
+        const statusCode = error.response.status;
+        setStatus(parseInt(statusCode))
+        console.log("status," + statusCode)
+        const result = messageType(statusCode)
+        setDetailedMsg(result.detailedMsg)
+        setShowAlert(true)
+      }
     }
-    
+    const messageType = (statusCode) => {
+      switch (statusCode) {
+        case 404:
+          return {
+            detailedMsg: t('notRegisteredMsg'),
+          }
+        case 500:
+          return {
+            detailedMsg: t('serverErrorMsg'),
+          }
+        default:
+          return {
+            detailedMsg: t('signupUnknownErrorMsg'),
+          }
+      }
+    }
+
     return (
 <ConfigProvider
   theme={{
@@ -43,6 +72,7 @@ const LoginBox = ({showSignupBox}) => {
     <Form onFinish={onFinish}
     validateTrigger="onBlur"
     className=" bg-slate-200 rounded-2xl flex flex-col items-center w-[22rem] h-[20rem] justify-center">
+     
     <Form.Item
     name="email"
             rules={[
@@ -61,6 +91,7 @@ const LoginBox = ({showSignupBox}) => {
      border border-gray-300 border-opacity-70 hover:border-slate-500 focus:border-slate-500"
      placeholder={t('email')}  type={"email"} prefix={<MailOutlined />} />
     </Form.Item>
+    {showAlert && <div>{detailedMsg} </div>}
     <Form.Item
         name="password"
          rules={[

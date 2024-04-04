@@ -69,7 +69,7 @@ const SignupBox = ({ closeSignupBox }) => {
       case 500:
         return {
           type: "error",
-          alertMsg: t('signupFailMsg'),
+          alertMsg: t('loginFailed'),
           detailedMsg: t('serverErrorMsg'),
         }
       default:
@@ -98,8 +98,6 @@ const SignupBox = ({ closeSignupBox }) => {
       }}
     >
       <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50">
-
-        {showAlert && <AlertBox alertMsg={alertMsg} detailedMsg={detailedMsg} type={type} />}
         <Form
           onFinish={onFinish}
           validateTrigger="onBlur"
@@ -107,6 +105,7 @@ const SignupBox = ({ closeSignupBox }) => {
           name="signupForm"
           className="bg-slate-300 rounded-2xl flex flex-col items-center w-[24rem] h-[22rem] "
         >
+           {showAlert && <AlertBox alertMsg={alertMsg} detailedMsg={detailedMsg} type={type} />}
           <Button className="ml-auto mr-3 mt-3" onClick={closeSignupBox} shape="circle" size="small" icon={ <CloseOutlined/>} />
      
           <Form.Item
