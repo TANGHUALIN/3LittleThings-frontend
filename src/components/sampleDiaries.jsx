@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import Diary from "./Diary"
+import Diary from "./DiaryFormat";
 import 'wc-waterfall'
 const SampleDiaries = () => {
   const { t } = useTranslation();

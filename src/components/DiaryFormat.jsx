@@ -7,11 +7,9 @@ const Diary=({diary})=>{
   const contentList = processContentReturnLi(content)
   return(
     <ConfigProvider>
-    <div>
-     <Card size="small" className="bg-slate-300 rounded-lg  h-auto max-w-full" title={updateTime}>
+     <Card size="small" id={did} className="bg-slate-300 rounded-lg  h-auto max-w-full" title={updateTime}>
      {contentList}
     </Card>
-</div>
 </ConfigProvider>
   )
 }

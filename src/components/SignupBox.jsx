@@ -3,7 +3,7 @@ import { Form, Input, Button} from "antd";
 import { MailOutlined, KeyOutlined, EyeInvisibleOutlined, EyeTwoTone, CloseOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { signupAPI } from "../apis/userAPI";
-import AlertBox from "./alertBox"
+import AlertBox from "./AlertBox"
 import { ConfigProvider } from 'antd';
 
 

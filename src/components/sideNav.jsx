@@ -2,7 +2,7 @@ import React, { useState,useRef } from 'react';
 import { Space } from 'antd';
 import i18n from '../i18n/i18n';
 import { useTranslation } from 'react-i18next';
-import CalendarComponent from './calendar';
+import CalendarComponent from './Calendar';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { fetchUserInfo } from '../store/modules/user';

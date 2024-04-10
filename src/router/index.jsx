@@ -12,7 +12,7 @@ import LoadingPage from "../pages/LoadingPage";
 const router=createBrowserRouter(
     [{
         path:"/",
-        element:<TopPage/>
+        element:<LayoutPage />
     },
     {
         path:"/diary",

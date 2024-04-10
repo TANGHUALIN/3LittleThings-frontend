@@ -1,10 +1,9 @@
 //日記に関するリクエスト
 import { request } from "../utils";
-export function getDiaryAPI(formData){
+export function getDiaryAPI(){
     return request({
         url:'/diary',
-        method:'POST',
-        data:formData
+        method:'GET',
     })
 }
 export function submitDiaryAPI(data){
