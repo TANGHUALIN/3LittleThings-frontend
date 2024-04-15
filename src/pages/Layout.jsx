@@ -15,17 +15,15 @@ const headerStyle = {
   paddingInline: 48,
   lineHeight: '64px',
   backgroundColor: '#fff',
-  
 };
 const contentStyle = {
-  textAlign: 'center',
   minHeight: 120,
   lineHeight: '120px',
   color: '#fff',
   backgroundColor: '#FFF',
 };
 const siderStyle = {
-  textAlign: 'center',
+  textAlign: 'left',
   lineHeight: '120px',
   color: '#fff',
   backgroundColor: '#fff',
@@ -46,12 +44,11 @@ const LayoutPage = () => {
        <Header style={headerStyle}>
         <div className="flex ml-10 mt-8">
       <SiteTitle />
-      <div className="ml-auto"><HeadNav /></div>
-        
+      <div className="ml-auto"><HeadNav /></div>  
         </div> 
       </Header>
       <Layout>
-        <Sider width="15%" style={siderStyle}>
+        <Sider width="20%" style={siderStyle}>
          <SideNav />
         </Sider>
         <Content  style={contentStyle}><DiaryPage /></Content>

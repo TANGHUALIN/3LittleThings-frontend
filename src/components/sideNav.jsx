@@ -49,19 +49,21 @@ const selectedKey=location.pathname
         ),
       ];
 return(
-        <div>
+        <div className="ml-10">
         <Menu
         style={{
-          width: 200,
+          width: 180,
         }}
         selectedKeys={selectedKey}
         onClick={onMenuClick}
         defaultOpenKeys={['sub1']}
         items={items}
+        className='text-base'
       />
-      <Input className="mt-0 ml-10 w-24" placeholder={t('search')} prefix={<SearchOutlined />} />
+      <Input className="ml-5 w-[8rem] " placeholder={t('search')} prefix={<SearchOutlined  />} />
       <Button className="" onClick={handleCalendar} type="text" icon={<CalendarOutlined />}></Button>
-      <div className={calendarClassnames}><CalendarComponent/></div>
+      <div className={calendarClassnames}><CalendarComponent /></div>
+    
       </div>
         )
     }
