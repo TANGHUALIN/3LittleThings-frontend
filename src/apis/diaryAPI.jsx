@@ -1,16 +1,18 @@
 //日記に関するリクエスト
 import { request } from "../utils";
-export function getDiaryAPI(formData){
+export function getDiaryAPI(){
     return request({
-        url:'/diary',
-        method:'POST',
-        data:formData
+        url:'/displayDiary',
+        method:'GET',
     })
 }
-export function submitDiaryAPI(data){
-    return request({
-        url:'/submitDiary',
-        method:'POST',
-        data
-    })
+
+export function getEntryAddedAPI(formData){
+    return request(
+        {
+            url:'/addDiary',
+            method:'POST',
+            data:formData
+        }
+    )
 }

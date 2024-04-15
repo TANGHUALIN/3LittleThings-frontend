@@ -1,18 +1,18 @@
 import App from "../App"
-import SideNav from "../components/sideNav"
-import CalendarComponent from "../components/calendar"
-import HeadNav from "../components/headNav"
-import ClassificationPulldown from "../components/classification"
-import Diary from "../components/Diary"
-import SiteTitle from "../components/siteTitle"
-import SampleDiaries from "../components/sampleDiaries"
+import SideNav from "../components/SideNav"
+import CalendarComponent from "../components/Calendar"
+import HeadNav from "../components/HeadNav"
+import ClassificationPulldown from "../components/Classification"
+import Diary from "../components/DiaryFormat"
+import SiteTitle from "../components/SiteTitle"
+import SampleDiaries from "../components/SampleDiaries"
 import SignupBox from "../components/SignupBox"
 import { Layout, Flex } from 'antd';
-import FooterWithAboutUs from "../components/footer"
-import SampleTimeline from "../components/timeline"
+import FooterWithAboutUs from "../components/Footer"
+import SampleTimeline from "../components/Timeline"
 import { useTranslation } from "react-i18next"
 import { processContentReturnP } from "../utils"
-import LoginBox from "../components/loginBox"
+import LoginBox from "../components/LoginBox"
 import { useState } from "react"
 const { Header, Footer,Content } = Layout;
 const TopPage=()=>{
@@ -47,6 +47,7 @@ const TopPage=()=>{
     const closeSignupBox=()=>{
         setSignupDisplay(false)
     }
+    
 return(
     <Layout style={layoutStyle} className="font-noto-jp">
       <Header style={headerStyle}>

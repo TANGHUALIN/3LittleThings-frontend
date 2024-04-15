@@ -9,7 +9,7 @@ import {  useDispatch } from "react-redux";
 import { fetchLogin } from "../store/modules/user";
 import { useNavigate } from "react-router-dom";
 import SignupBox from "./SignupBox";
-import AlertBox from "./alertBox";
+import AlertBox from "./AlertBox";
 
 
 const LoginBox = ({showSignupBox}) => {

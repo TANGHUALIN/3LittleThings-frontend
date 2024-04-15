@@ -2,7 +2,7 @@ import React, { useState,useRef } from 'react';
 import { Space } from 'antd';
 import i18n from '../i18n/i18n';
 import { useTranslation } from 'react-i18next';
-import CalendarComponent from './calendar';
+import CalendarComponent from './Calendar';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { fetchUserInfo } from '../store/modules/user';
@@ -49,22 +49,21 @@ const selectedKey=location.pathname
         ),
       ];
 return(
-        <div>
+        <div className="ml-10">
         <Menu
         style={{
-          width: 256,
+          width: 180,
         }}
         selectedKeys={selectedKey}
         onClick={onMenuClick}
         defaultOpenKeys={['sub1']}
         items={items}
+        className='text-base'
       />
-      <Input prefix={<SearchOutlined />} />
-      <Button onClick={handleCalendar} type="text" icon={<CalendarOutlined />}></Button>
-      <div className={calendarClassnames}>
-      <CalendarComponent />
-      </div>
-      <Button  type="text" icon={<SwapOutlined rotate='90'/>}></Button>
+      <Input className="ml-5 w-[8rem] " placeholder={t('search')} prefix={<SearchOutlined  />} />
+      <Button className="" onClick={handleCalendar} type="text" icon={<CalendarOutlined />}></Button>
+      <div className={calendarClassnames}><CalendarComponent /></div>
+    
       </div>
         )
     }
