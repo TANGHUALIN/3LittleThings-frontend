@@ -47,6 +47,7 @@ const TopPage=()=>{
     const closeSignupBox=()=>{
         setSignupDisplay(false)
     }
+    
 return(
     <Layout style={layoutStyle} className="font-noto-jp">
       <Header style={headerStyle}>

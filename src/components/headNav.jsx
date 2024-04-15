@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { useEffect,useState } from "react"
-import { clearUserInfo, fetchUserInfo } from "../store/modules/user"
+import { clearUserInfo} from "../store/modules/user"
 import { useSelector } from "react-redux"
 import { getItem } from "../utils"
 import { ConfigProvider, Menu,Popconfirm } from "antd"
@@ -11,10 +11,7 @@ const HeadNav=()=>{
 //ページを開いたらすぐuidを取得する
 const navigate=useNavigate()
 const dispatch =useDispatch()
-useEffect(()=>{
-dispatch(fetchUserInfo())
-},[dispatch]
-)
+
 const uid=useSelector(state=>state.user.uid)
 
 const[accountState,setAccountState]=useState(false)

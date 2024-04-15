@@ -11,10 +11,11 @@ const { Header, Footer, Sider, Content } = Layout;
 const headerStyle = {
   textAlign: 'center',
   color: '#fff',
-  height: 64,
+  height: 150,
   paddingInline: 48,
   lineHeight: '64px',
   backgroundColor: '#fff',
+  
 };
 const contentStyle = {
   textAlign: 'center',
@@ -35,22 +36,25 @@ const footerStyle = {
   backgroundColor: '#fff',
 };
 const layoutStyle = {
-  height: '100%',
-  overflow: 'hidden',
-  width: 'calc(50% - 8px)',
-  maxWidth: 'calc(50% - 8px)',
+  height: '100%'
 };
 const LayoutPage = () => {
 
     return(
    
       <Layout style={layoutStyle}>
-      <Header style={headerStyle}><HeadNav/></Header>
+       <Header style={headerStyle}>
+        <div className="flex ml-10 mt-8">
+      <SiteTitle />
+      <div className="ml-auto"><HeadNav /></div>
+        
+        </div> 
+      </Header>
       <Layout>
-        <Sider width="25%" style={siderStyle}>
+        <Sider width="15%" style={siderStyle}>
          <SideNav />
         </Sider>
-        <Content style={contentStyle}><DiaryPage /></Content>
+        <Content  style={contentStyle}><DiaryPage /></Content>
       </Layout>
       <Footer style={footerStyle}><FooterWithAboutUs/></Footer>
     </Layout>

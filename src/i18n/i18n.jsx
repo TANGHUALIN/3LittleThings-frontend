@@ -53,7 +53,7 @@ i18n
                     introductionMsg:'Record your daily events, inspirations, and thoughts in study, work, and life effortlessly, just like sending messages. Review your past easily in a timeline format.',
                     loginFailed:'Login failed',
                     notRegisteredMsg:'This email is not registered.',
-
+                    search:'Search',
                 },
             },
             jp:{
@@ -111,7 +111,7 @@ i18n
                     introductionMsg:`勉強や仕事、生活における日常の出来事、インスピレーション、そして考えを簡単に、メッセージを送るように記録できます。\n過去をタイムライン形で簡単に振り返ることも可能にします。`,
                     loginFailed:'ログイン失敗',
                     notRegisteredMsg:'このメールアドレスは登録されていません。',
-
+                    search:'検索',
 
                 },
             },

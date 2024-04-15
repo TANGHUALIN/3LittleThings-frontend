@@ -52,19 +52,16 @@ return(
         <div>
         <Menu
         style={{
-          width: 256,
+          width: 200,
         }}
         selectedKeys={selectedKey}
         onClick={onMenuClick}
         defaultOpenKeys={['sub1']}
         items={items}
       />
-      <Input prefix={<SearchOutlined />} />
-      <Button onClick={handleCalendar} type="text" icon={<CalendarOutlined />}></Button>
-      <div className={calendarClassnames}>
-      <CalendarComponent />
-      </div>
-      <Button  type="text" icon={<SwapOutlined rotate='90'/>}></Button>
+      <Input className="mt-0 ml-10 w-24" placeholder={t('search')} prefix={<SearchOutlined />} />
+      <Button className="" onClick={handleCalendar} type="text" icon={<CalendarOutlined />}></Button>
+      <div className={calendarClassnames}><CalendarComponent/></div>
       </div>
         )
     }

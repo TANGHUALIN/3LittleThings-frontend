@@ -1,8 +1,21 @@
+function processEntryReturnLi(diaryEntry) {
+    if (!Array.isArray(diaryEntry)) {
+        console.error("diaryEntry should be an array.");
+        return null;
+      }
+    
+      const contentList = diaryEntry.map((entry) => (
+        <li className="list-disc text-left" key={entry.eid}>{entry.entryContent}</li>
+      ));
+      
+      return contentList;
+}
 function processContentReturnLi(content) {
-  const lines = content.split('\n');
-  const contentList = lines.map((line, index) => (
-    <li className="list-disc text-left" key={index}>{line}</li>))
-    return contentList;
+    const lines = content.split('\n');
+    const contentList = lines.map((line,index) => (
+        <li className="list-disc text-left" key={index}>{line}</li>
+      ));
+      return contentList;
 }
 function processContentReturnP(content) {
     const lines = content.split('\n');
@@ -11,6 +24,7 @@ function processContentReturnP(content) {
 }
 export{
     processContentReturnLi,
-    processContentReturnP
+    processContentReturnP,
+    processEntryReturnLi
 }
 

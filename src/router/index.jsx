@@ -1,7 +1,7 @@
 import DiaryPage from "../pages/DiaryPage";
 import TopPage from "../pages/TopPage";
 import { createBrowserRouter } from "react-router-dom";
-import { AuthRoute } from "../components/authRoute";
+import { AuthRoute } from "../components/AuthRoute";
 
 import LayoutPage from "../pages/Layout";
 import FavoritePage from "../pages/FavoritePage";
@@ -12,7 +12,7 @@ import LoadingPage from "../pages/LoadingPage";
 const router=createBrowserRouter(
     [{
         path:"/",
-        element:<LayoutPage />
+        element:<TopPage />
     },
     {
         path:"/diary",
