@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { request,setToken as setTokenInLocal,getToken } from "../../utils";
-import { loginAPI, getUidAPI } from "../../apis/userAPI";
+import { request} from "../../utils";
+
 import { getDiaryAPI } from "../../apis/diaryAPI";
 const diaryStore = createSlice({
     name: "diary",
@@ -12,35 +12,56 @@ const diaryStore = createSlice({
             state.diaryList = action.payload;
         },
         addNewDiary(state, action) {
-            const {diaryEntry} = action.payload;
+            const { diaryEntry } = action.payload;
             const existingDiaryIndex = state.diaryList.findIndex(
-                diary => diary.did === diaryEntry.did
-            )
-            if (existingDiaryIndex!==-1) {
-                const existingDiary = state.diaryList[existingDiaryIndex]
-                existingDiary.content.push(content)
-                existingDiary.diaryDate = diaryEntry.entryDate
+              diary => diary.did === diaryEntry.did
+            );
+          
+            if (existingDiaryIndex !== -1) {
+              // Update existing diary
+              const updatedDiaryList = [...state.diaryList];
+              updatedDiaryList[existingDiaryIndex] = {
+                ...updatedDiaryList[existingDiaryIndex],
+                diaryEntry: [...updatedDiaryList[existingDiaryIndex].diaryEntry, diaryEntry],
+              };
+          
+              return {
+                ...state,
+                diaryList: updatedDiaryList,
+              };
             } else {
-                const newDiary = {
-                    did:did,
-                    diaryDate: diaryDate,
-                    diaryEntry:[],
-                    cid: 0,
-                    favoriteState: false,
-                };
-                state.diaryList.push(newDiary);
+              // Add new diary
+              const newDiary = {
+                did: diaryEntry.did,
+                diaryDate: diaryEntry.diaryDate,
+                diaryEntry: [diaryEntry],
+                favoriteState: false,
+              };
+              
+              return {
+                ...state,
+                diaryList: [...state.diaryList, newDiary],
+              };
             }
-        }
+          }
+          
+        
+       
         ,deleteDiary(state,action){
 
         }
-        ,updateDiary(state,action){
-
+        ,updateFavoriteState(state,action){
+            const {did,favoriteState} = action.payload;
+            const existingDiaryIndex = state.diaryList.findIndex(
+                diary => diary.did === did
+            )
+            const existingDiary = state.diaryList[existingDiaryIndex]
+            existingDiary.favoriteState=favoriteState
         }
     }
 });
 
-const { setDiaryList, addNewDiary } = diaryStore.actions;
+const { setDiaryList, addNewDiary,updateFavoriteState } = diaryStore.actions;
 const diaryReducer = diaryStore.reducer;
 
 const fetchDiaryList = () => async (dispatch) => {
@@ -63,5 +84,5 @@ const fetchNewDiary = () => async (dispatch) => {
     }
 };
 
-export { fetchDiaryList, fetchNewDiary, setDiaryList, addNewDiary };
+export { fetchDiaryList, fetchNewDiary, setDiaryList, addNewDiary,updateFavoriteState };
 export default diaryReducer;

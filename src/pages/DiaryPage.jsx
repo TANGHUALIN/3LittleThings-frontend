@@ -57,11 +57,11 @@ const DiaryPage=()=>{
         </Form>
 
         {diaries && Array.isArray(diaries) && diaries.length > 0 ? (
-  <wc-waterfall gap={10} cols={5}>
+ <div className="w-2/3 ml-20"> <wc-waterfall gap={10} cols={4} >
     {diaries.map(item => (
      <div><Diary key={item.did} diary={item} /></div> 
     ))}
-  </wc-waterfall>
+  </wc-waterfall></div>
 ) : null}
 
          </div>

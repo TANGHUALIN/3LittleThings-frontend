@@ -1,7 +1,7 @@
-import { getToken } from "../utils";
+import {  useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 export function AuthRoute({children}){
-    const token=getToken()
+    const token=useSelector(state => state.user.token)
     if(token){
         console.log("token in AuthRoute,",token)
         return <>{children}</>

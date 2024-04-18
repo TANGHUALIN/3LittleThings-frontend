@@ -25,6 +25,7 @@ const LoginBox = ({showSignupBox}) => {
         await dispatch(fetchLogin(value))
         navigate('/diary')
       }catch (error) {
+        console.log(error)
         const statusCode = error.response.status;
         setStatus(parseInt(statusCode))
         console.log("status," + statusCode)

@@ -23,11 +23,3 @@ export function loginAPI(formData){
         data:formData
     })
 }
-export function getUidAPI(){
-    return request(
-        {
-            url:'/uid',
-            method:'GET',
-        }
-    )
-}

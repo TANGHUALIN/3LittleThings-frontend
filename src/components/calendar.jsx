@@ -1,38 +1,61 @@
-import React from 'react';
-import { ConfigProvider,Calendar, theme } from 'antd';
-import enUS from 'antd/locale/en_US';
-import jaJP from 'antd/locale/ja_JP';
 import dayjs from 'dayjs';
-dayjs.locale('jp');
-const onPanelChange = (value, mode) => {
-  console.log(value.format('YYYY-MM-DD'), mode);
-};
+import { ConfigProvider, Calendar } from 'antd';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDiaryList, setDiaryList } from '../store/modules/diary';
+import i18n from '../i18n/i18n';
+import 'dayjs/locale/en';
+import 'dayjs/locale/ja';
+import 'dayjs/locale/zh-cn';
+
+
 const CalendarComponent = () => {
-   
-  const { token } = theme.useToken();
-  const wrapperStyle = {
-    width: 300,
-    border: `1px solid ${token.colorBorderSecondary}`,
-    borderRadius: token.borderRadiusLG,
+  const dispatch = useDispatch();
+  const diaries = useSelector(state => state.diary.diaryList);
+  const currentLanguage = i18n.language;
+
+  useEffect(() => {
+    switch (currentLanguage) {
+      case 'jp':
+        dayjs.locale('ja');
+        break;
+      case 'cn':
+        dayjs.locale('zh-cn');
+        break;
+      default:
+        dayjs.locale('en');
+        break;
+    }
+  }, [currentLanguage]);
+
+  const onChange = (value) => {
+    if (value !== null) {
+      const existingDiaryIndex = diaries.findIndex(
+        diary => diary.date === value
+      );
+      if (existingDiaryIndex !== -1) {
+        dispatch(setDiaryList(diaries[existingDiaryIndex]));
+      }
+    } else {
+      dispatch(fetchDiaryList());
+    }
   };
+
   return (
- 
-    
-           <ConfigProvider
-    theme={{
-      components: {
-        Calendar: {
-            fullBg:'52575D',
-            itemActiveBg:'FFFFFF',
-          },
-      },
-    }}
-  > <div style={wrapperStyle}>
-      <Calendar fullscreen={false} onPanelChange={onPanelChange}  
-      /></div>
-       </ConfigProvider>
-   
-   
+    <ConfigProvider
+      locale={currentLanguage === 'cn' ? "zh_CN" : currentLanguage === 'jp' ? "ja_JP" : "en_US"}
+      theme={{
+        color: {
+          primary: '#718096',
+        },
+        datePicker: {
+          activeBorderColor: '#718899',
+        },
+      }}
+    >
+      <Calendar fullscreen={false} onChange={onChange} />
+    </ConfigProvider>
   );
 };
-export default CalendarComponent ;
+
+export default CalendarComponent;
