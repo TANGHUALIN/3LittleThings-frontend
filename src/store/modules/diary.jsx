@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { request} from "../../utils";
 
-import { getDiaryAPI } from "../../apis/diaryAPI";
+import { getDiaryAPI, getFavoriteStateAPI } from "../../apis/diaryAPI";
 const diaryStore = createSlice({
     name: "diary",
     initialState: {
@@ -50,14 +50,30 @@ const diaryStore = createSlice({
         ,deleteDiary(state,action){
 
         }
-        ,updateFavoriteState(state,action){
-            const {did,favoriteState} = action.payload;
+        ,updateFavoriteState(state, action) {
+            const diaries = state.diaryList;
+            const { did, favoriteState } = action.payload;
             const existingDiaryIndex = state.diaryList.findIndex(
                 diary => diary.did === did
             )
-            const existingDiary = state.diaryList[existingDiaryIndex]
-            existingDiary.favoriteState=favoriteState
+            if (existingDiaryIndex !== -1) {
+                const existingDiary = state.diaryList[existingDiaryIndex];
+                const updatedDiary = {
+                    ...existingDiary,
+                    favoriteState: favoriteState
+                }
+                const newDiaryList = diaries.map((diary, index) => {
+                    if (index === existingDiaryIndex) {
+                        return updatedDiary;
+                    }
+                    return diary;
+                })
+                return { ...state, diaryList: newDiaryList };
+            }
+            return state
         }
+        
+    
     }
 });
 
@@ -83,6 +99,18 @@ const fetchNewDiary = () => async (dispatch) => {
         console.error('Error fetching newest diary:', error);
     }
 };
+const fetchFavoriteState=(did,favoriteState)=>async (dispatch) => {
+    try {
+        const res = await getFavoriteStateAPI(did,favoriteState);
+        if (res.status === 200) {
+          dispatch(updateFavoriteState(did, favoriteState));
+        } else {
+          console.error('Failed to update favorite state.');
+        }
+      } catch (error) {
+        console.error('Error updating favorite state:', error);
+      }
+};
 
-export { fetchDiaryList, fetchNewDiary, setDiaryList, addNewDiary,updateFavoriteState };
+export { fetchDiaryList, fetchNewDiary, setDiaryList, addNewDiary,updateFavoriteState,fetchFavoriteState };
 export default diaryReducer;

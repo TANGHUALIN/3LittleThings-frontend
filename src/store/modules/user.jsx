@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { request} from "../../utils";
 import { verifyAPI, loginAPI } from "../../apis/userAPI";
 import { useDispatch } from "react-redux";
+import { setToken as setTokenInLocal } from "../../utils";
 const userStore=createSlice(
     {
         name:"user",
@@ -12,6 +13,7 @@ const userStore=createSlice(
         reducers:{
             setToken(state,action){
                 state.token=action.payload
+                setTokenInLocal(action.payload)
             }
             ,setUserInfo(state,action){
                 state.uid=action.payload

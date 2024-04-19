@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { getToken } from "./token";
 
 const request = axios.create({
     baseURL: 'http://localhost:8080/3LittleThings',
@@ -7,7 +7,7 @@ const request = axios.create({
 });
 
 request.interceptors.request.use(function (config) {
-    const token = useSelector(state=>state.user.token)
+    const token=getToken()
     if (token) {
         config.headers.Authorization = `Bearer ${token}`; // 注意这里使用了反引号 `` 而不是单引号 ''
     }
