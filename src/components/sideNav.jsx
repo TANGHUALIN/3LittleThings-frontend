@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import CalendarComponent from './Calendar';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
-import { fetchUserInfo } from '../store/modules/user';
 import { getItem } from '../utils';
 import { useLocation } from 'react-router-dom';
 import {
@@ -23,11 +22,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const SideNav=()=>{
 const { t } = useTranslation()
-const [calendarState,setCalendarState]=useState(true)
+const [calendarState,setCalendarState]=useState(false)
 const handleCalendar=()=>{
     calendarState===true?setCalendarState(false):setCalendarState(true)
 }
-const calendarClassnames=classNames({ 'hidden': calendarState })
 const navigate=useNavigate()
 const onMenuClick=(route)=>{
   console.log('menu clicked',route)
@@ -37,15 +35,15 @@ const onMenuClick=(route)=>{
 //今のパスを取得
 const location=useLocation()
 console.log(location.pathname)
-const selectedKey=location.pathname
+const selectedKey=[location.pathname]
 
  const items = [
       getItem(t('diary'), '/', <BarsOutlined />),
-      getItem(t('favorite'), '/favorite',<LineOutlined rotate='90' />),
+      getItem(t('favorite'), '/favorite', <HeartOutlined />),
       getItem(
            t('timeline'),
-          '/timeline',
-          <HeartOutlined />,
+          '/diary/timeline',
+          <LineOutlined rotate='90' />,
         ),
       ];
 return(
@@ -62,7 +60,7 @@ return(
       />
       <Input className="ml-5 w-[8rem] " placeholder={t('search')} prefix={<SearchOutlined  />} />
       <Button className="" onClick={handleCalendar} type="text" icon={<CalendarOutlined />}></Button>
-      <div className={calendarClassnames}><CalendarComponent /></div>
+      <div className="">{calendarState&&<CalendarComponent />}</div>
     
       </div>
         )

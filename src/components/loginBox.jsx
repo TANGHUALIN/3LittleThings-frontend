@@ -6,26 +6,34 @@ import classNames from "classnames";
 import { Form,Button,Input,ConfigProvider} from "antd";
 import { MailOutlined,KeyOutlined,EyeInvisibleOutlined, EyeTwoTone  } from "@ant-design/icons";
 import {  useDispatch } from "react-redux";
-import { fetchLogin } from "../store/modules/user";
 import { useNavigate } from "react-router-dom";
 import SignupBox from "./SignupBox";
 import AlertBox from "./AlertBox";
-
+import { useQuery } from "@tanstack/react-query";
+import { setToken } from "../utils";
+import { useQueryClient } from '@tanstack/react-query';
+import { fetchTokenWhenLogin } from "../queryFN/userFN";
+import { loginAPI } from "../apis/userAPI";
 
 const LoginBox = ({showSignupBox}) => {
-    const { t } = useTranslation();
-    const dispatch=useDispatch()
+  
+    const { t } = useTranslation()
     const navigate=useNavigate()
     const [status, setStatus] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
     const [detailedMsg, setDetailedMsg] = useState("");
+    const queryClient=useQueryClient()
     const onFinish=async(value)=>{
       try{
         console.log(value)
-        await dispatch(fetchLogin(value))
+        const data=await loginAPI(value)
+        const token=data.headers['authorization'].split(' ')[1]
+        console.log(token)
+        setToken(token)
         navigate('/diary')
       }catch (error) {
-        const statusCode = error.response.status;
+        console.log(error)
+        const statusCode = error? error.status : null
         setStatus(parseInt(statusCode))
         console.log("status," + statusCode)
         const result = messageType(statusCode)

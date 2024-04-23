@@ -1,5 +1,5 @@
-import { getToken } from "../utils";
 import { Navigate } from "react-router-dom";
+import { getToken } from "../utils";
 export function AuthRoute({children}){
     const token=getToken()
     if(token){

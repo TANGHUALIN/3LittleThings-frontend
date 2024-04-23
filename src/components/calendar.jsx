@@ -1,38 +1,48 @@
-import React from 'react';
-import { ConfigProvider,Calendar, theme } from 'antd';
-import enUS from 'antd/locale/en_US';
-import jaJP from 'antd/locale/ja_JP';
 import dayjs from 'dayjs';
-dayjs.locale('jp');
-const onPanelChange = (value, mode) => {
-  console.log(value.format('YYYY-MM-DD'), mode);
-};
+import { ConfigProvider, Calendar } from 'antd';
+import { useEffect } from 'react';
+import i18n from '../i18n/i18n';
+import 'dayjs/locale/en';
+import 'dayjs/locale/ja';
+import 'dayjs/locale/zh-cn';
+
+
 const CalendarComponent = () => {
-   
-  const { token } = theme.useToken();
-  const wrapperStyle = {
-    width: 300,
-    border: `1px solid ${token.colorBorderSecondary}`,
-    borderRadius: token.borderRadiusLG,
-  };
-  return (
+  const currentLanguage = i18n.language;
+
+  useEffect(() => {
+    switch (currentLanguage) {
+      case 'jp':
+        dayjs.locale('ja');
+        break;
+      case 'cn':
+        dayjs.locale('zh-cn');
+        break;
+      default:
+        dayjs.locale('en');
+        break;
+    }
+  }, [currentLanguage]);
+
+  const onChange = (value) => {
  
-    
-           <ConfigProvider
-    theme={{
-      components: {
-        Calendar: {
-            fullBg:'52575D',
-            itemActiveBg:'FFFFFF',
-          },
-      },
-    }}
-  > <div style={wrapperStyle}>
-      <Calendar fullscreen={false} onPanelChange={onPanelChange}  
-      /></div>
-       </ConfigProvider>
-   
-   
+  };
+
+  return (
+    <ConfigProvider
+      locale={currentLanguage === 'cn' ? "zh_CN" : currentLanguage === 'jp' ? "ja_JP" : "en_US"}
+      theme={{
+        color: {
+          primary: '#718096',
+        },
+        datePicker: {
+          activeBorderColor: '#718899',
+        },
+      }}
+    >
+      <Calendar fullscreen={false} onChange={onChange} />
+    </ConfigProvider>
   );
 };
-export default CalendarComponent ;
+
+export default CalendarComponent;

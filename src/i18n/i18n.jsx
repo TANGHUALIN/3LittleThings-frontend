@@ -20,7 +20,7 @@ i18n
                     account:'Account',
                     changePassword:'Change Password',
                     logout:'Log out',
-                    timeline:'Time Line',
+                    timeline:'Timeline',
                     favorite:'Favorite',
                     todoList:'TODO List',
                     newdiary:'New diary...',

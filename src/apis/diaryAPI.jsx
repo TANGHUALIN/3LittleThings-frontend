@@ -16,3 +16,9 @@ export function getEntryAddedAPI(formData){
         }
     )
 }
+export function getFavoriteStateAPI(did, favoriteState) {
+    return request({
+        url: `/updateFavorite?did=${did}&favoriteState=${favoriteState}`,
+        method: 'GET',
+    });
+}
