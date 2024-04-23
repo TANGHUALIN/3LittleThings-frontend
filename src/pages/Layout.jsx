@@ -3,7 +3,6 @@ import { Layout, Flex } from 'antd';
 import { Outlet } from 'react-router-dom';
 import SiteTitle from '../components/SiteTitle';
 import HeadNav from '../components/HeadNav';
-import { useSelector } from "react-redux"
 import FooterWithAboutUs from '../components/Footer';
 import SideNav from '../components/SideNav';
 import DiaryPage from './DiaryPage';

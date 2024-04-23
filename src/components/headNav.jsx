@@ -1,28 +1,23 @@
-import { useDispatch } from "react-redux"
+
 import { useEffect,useState } from "react"
-import { clearUserInfo} from "../store/modules/user"
-import { useSelector } from "react-redux"
+import { getToken } from "../utils"
 import { getItem } from "../utils"
 import { ConfigProvider, Menu,Popconfirm } from "antd"
 import { useTranslation } from "react-i18next"
 import classNames from "classnames"
 import { useNavigate } from "react-router-dom"
 const HeadNav=()=>{
-//ページを開いたらすぐuidを取得する
 const navigate=useNavigate()
-const dispatch =useDispatch()
-
-const uid=useSelector(state=>state.user.uid)
-
 const[accountState,setAccountState]=useState(false)
 
 useEffect(()=>{
-  if(uid){
+  const token=getToken();
+  if(token){
     setAccountState(true)
   }else{
     setAccountState(false)
   }
-},[uid])
+},[])
 
 
 const { t,i18n } = useTranslation();
@@ -35,7 +30,7 @@ const changeLanguage=(lang)=>{
 
 const onConfirm=()=>{
     console.log('log out')
-    dispatch(clearUserInfo())
+    removeToken()
     navigate('/')
 }
 const [current, setCurrent] = useState('mail');

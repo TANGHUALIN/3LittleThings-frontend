@@ -1,5 +1,4 @@
 import { Form } from "antd"
-import { submitDiaryAPI } from "../apis/diaryAPI"
 
 const NewDiary=()=>{
 const onFinish=(formValue)=>{
@@ -11,7 +10,6 @@ const onFinish=(formValue)=>{
         cid,
     }
 
-    submitDiaryAPI(reqData)
 }
 
     return(
