@@ -23,3 +23,10 @@ export function loginAPI(formData){
         data:formData
     })
 }
+export function updatePasswordAPI(formData){
+    return request({
+        url:'/updatePassword',
+        method:'POST',
+        data:formData
+    })
+}

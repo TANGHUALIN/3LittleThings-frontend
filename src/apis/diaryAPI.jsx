@@ -17,8 +17,22 @@ export function getEntryAddedAPI(formData){
     )
 }
 export function getFavoriteStateAPI(did, favoriteState) {
+    console.log("params in api",did,favoriteState)
     return request({
         url: `/updateFavorite?did=${did}&favoriteState=${favoriteState}`,
         method: 'GET',
     });
 }
+export function deleteDiaryAPI(did) {
+    return request({
+        url: `/deleteDiary?did=${did}`,
+        method: 'GET',
+    });
+}
+export function updataDiaryEntryAPI(eid) {
+    return request({
+        url: `/deleteDiary?eid=${eid}`,
+        method: 'GET',
+    });
+}
+

@@ -11,8 +11,6 @@ import { fetchDiaryList } from "../queryFN/diaryFN";
 import { useQueryClient } from "@tanstack/react-query";
 import { addNewDiary } from "../mutationFN/diaryFN";
 const DiaryPage=()=>{
-    const[classificationList,setClassificationList]=useState([])
-    const[favoriteState,setFavoriteState]=useState([])
     const navigate=useNavigate()
   
     const {t}=useTranslation()
@@ -72,7 +70,7 @@ useQuery({
   };
       return (
         <div className="">
-        <Form  ref={formRef} className="flex  w-full">
+        <Form  ref={formRef} className="flex w-full">
         <Form.Item
          name="entryContent"
          className="w-full"
