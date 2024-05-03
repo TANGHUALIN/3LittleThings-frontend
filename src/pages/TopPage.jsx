@@ -1,6 +1,5 @@
 import HeadNav from "../components/HeadNav"
-import ClassificationPulldown from "../components/Classification"
-import Diary from "../components/DiaryFormat"
+
 import SiteTitle from "../components/SiteTitle"
 import SampleDiaries from "../components/SampleDiaries"
 import SignupBox from "../components/SignupBox"
@@ -65,7 +64,7 @@ return(
         {introductionMsg}</div>
         </div>
 
-         <div className="flex flex-col items-center justify-center h-full">
+        <div className="flex flex-col items-center justify-center h-full">
         <div className="flex-auto items-center">
         <div className="w-4/5 justify-center ml-5 text-3xl mb-5">
         {welcomeMsg}

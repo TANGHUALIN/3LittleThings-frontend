@@ -1,11 +1,18 @@
 //日記に関するリクエスト
 import { request } from "../utils";
-export function getDiaryAPI(){
+export function getDiaryAPI(page){
     return request({
-        url:'/displayDiary',
+        url:`/displayDiary?page=${page}`,
         method:'GET',
     })
 }
+export function getDiaryCountAPI(){
+    return request({
+        url:`/diaryCount`,
+        method:'GET',
+    })
+}
+
 
 export function getEntryAddedAPI(formData){
     return request(
@@ -20,19 +27,27 @@ export function getFavoriteStateAPI(did, favoriteState) {
     console.log("params in api",did,favoriteState)
     return request({
         url: `/updateFavorite?did=${did}&favoriteState=${favoriteState}`,
-        method: 'GET',
+        method: 'PUT',
     });
 }
 export function deleteDiaryAPI(did) {
     return request({
         url: `/deleteDiary?did=${did}`,
-        method: 'GET',
+        method: 'DELETE',
     });
 }
-export function updataDiaryEntryAPI(eid) {
+export function updateDiaryEntryAPI(formData) {
     return request({
-        url: `/deleteDiary?eid=${eid}`,
-        method: 'GET',
+        url: `/updateDiaryEntry`,
+        method: 'PUT',
+        data:formData
+    });
+}
+export function deleteDiaryEntryAPI(eid) {
+    return request({
+        url: `/deleteDiaryEntry`,
+        method: 'DELETE',
+        data:eid
     });
 }
 

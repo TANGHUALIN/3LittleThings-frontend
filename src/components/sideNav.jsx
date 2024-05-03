@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { getItem } from '../utils';
 import { useLocation } from 'react-router-dom';
+import { useMutation, useQuery,useQueryClient } from '@tanstack/react-query';
 import {
   HeartOutlined,
   CalendarOutlined,
@@ -22,30 +23,29 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const SideNav=()=>{
 const { t } = useTranslation()
-const [calendarState,setCalendarState]=useState(false)
-const handleCalendar=()=>{
-    calendarState===true?setCalendarState(false):setCalendarState(true)
-}
+
+
 const navigate=useNavigate()
 const onMenuClick=(route)=>{
   console.log('menu clicked',route)
   const path=route.key
   navigate(path)
 }
-//今のパスを取得
+
 const location=useLocation()
 console.log(location.pathname)
 const selectedKey=[location.pathname]
 
  const items = [
-      getItem(t('diary'), '/', <BarsOutlined />),
-      getItem(t('favorite'), '/favorite', <HeartOutlined />),
+      getItem(t('diary'), '/diary', <BarsOutlined />),
+      getItem(t('favorite'), '/diary/favorite', <HeartOutlined />),
       getItem(
            t('timeline'),
           '/diary/timeline',
           <LineOutlined rotate='90' />,
         ),
       ];
+
 return(
         <div className="ml-10">
         <Menu
@@ -58,9 +58,6 @@ return(
         items={items}
         className='text-base'
       />
-      <Input className="ml-5 w-[8rem] " placeholder={t('search')} prefix={<SearchOutlined  />} />
-      <Button className="" onClick={handleCalendar} type="text" icon={<CalendarOutlined />}></Button>
-      <div className="">{calendarState&&<CalendarComponent />}</div>
     
       </div>
         )

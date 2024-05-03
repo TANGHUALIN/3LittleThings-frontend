@@ -1,14 +1,34 @@
-function processEntryReturnLi(diaryEntry) {
-    if (!Array.isArray(diaryEntry)) {
-        console.error("diaryEntry should be an array.");
-        return null;
-      }
+function processEntryReturnLi(diaryEntry, keyword) {
+  if (!Array.isArray(diaryEntry)) {
+    console.error("diaryEntry should be an array.")
+    return null;
+  }
+  
+ 
+  const contentList = diaryEntry.map(entry => (
+    <li className="list-disc text-left" key={entry.eid}>
+      {entry.entryContent}
+     
+    </li>
+  ));
+
+  return contentList;
+}
+
+function processEntryReturnP(diaryEntry) {
+  if (!Array.isArray(diaryEntry)) {
+      console.error("diaryEntry should be an array.");
+      return null;
+    }
+  
+    const contentList = diaryEntry.map((entry) => (
+      <p className="" key={entry.eid}>{entry.entryContent}</p>
+    ));
     
-      const contentList = diaryEntry.map((entry) => (
-        <li className="list-disc text-left" key={entry.eid}>{entry.entryContent}</li>
-      ));
-      
-      return contentList;
+    return contentList;
+}
+function processEntryReturnString(entryContent) {
+  return '・'+entryContent.toString() 
 }
 function processContentReturnLi(content) {
     const lines = content.split('\n');
@@ -25,6 +45,8 @@ function processContentReturnP(content) {
 export{
     processContentReturnLi,
     processContentReturnP,
-    processEntryReturnLi
+    processEntryReturnLi,
+    processEntryReturnP,
+    processEntryReturnString
 }
 

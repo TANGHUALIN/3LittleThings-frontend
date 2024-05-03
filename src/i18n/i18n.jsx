@@ -115,6 +115,59 @@ i18n
 
                 },
             },
+            cn:{
+            
+                    
+                        "translation": {
+                            "language": "语言",
+                            "about": "关于我们",
+                            "theme": "主题",
+                            "signup": "注册",
+                            "forgotPassword": "忘记密码？",
+                            "login": "登录",
+                            "welcomeMsg": "欢迎来到3LittleThings！\n开始记录您的第一篇轻松记录、轻松回顾的日记。",
+                            "diary": "日记",
+                            "account": "账号",
+                            "changePassword": "修改密码",
+                            "logout": "登出",
+                            "timeline": "时间线",
+                            "favorite": "收藏",
+                            "todoList": "待办事项",
+                            "newdiary": "新的日记...",
+                            "default": "默认",
+                            "work": "工作",
+                            "study": "学习",
+                            "life": "生活",
+                            "email": "邮箱",
+                            "password": "密码",
+                            "submit": "提交",
+                            "enterPasswordAgainMsg": "请再次输入您的密码。",
+                            "invalidInput": "无效的输入",
+                            "displayPassword": "显示密码。",
+                            "emailIsNotValid": "您的邮箱地址无效。请提供有效的邮箱地址。",
+                            "pleaseInputEmail": "请输入您的邮箱。",
+                            "pleaseInputPassword": "请输入您的密码。",
+                            "logoutConfirmMsg": "您确定要登出吗？",
+                            "yes": "是",
+                            "no": "否",
+                            "aboutSite": "关于网站",
+                            "passwordMatchMsg": "密码匹配。",
+                            "passwordUnmatchMsg": "密码不匹配。请重新输入您的密码。",
+                            "passwordConfirm": "确认密码",
+                            "signupSuccessMsg": "注册成功",
+                            "signupSuccessDetailedMsg": "请检查您的邮箱，并点击验证链接完成登录验证。",
+                            "signupFailMsg": "注册失败",
+                            "emailRegisteredMsg": "该邮箱已被注册。请返回首页登录。",
+                            "serverErrorMsg": "服务器错误。请稍后重试。",
+                            "signupTwiceMsg": "请不要在五分钟内重复尝试注册。请检查您的邮箱，并点击链接完成注册。如果您没有收到邮件，请在五分钟后重试。",
+                            "introductionMsg": "轻松记录每天的事件、灵感和思考，无论是学习、工作还是生活，就像发送消息一样。可以以时间线形式轻松回顾您的过去。",
+                            "loginFailed": "登录失败",
+                            "notRegisteredMsg": "此邮箱尚未注册。",
+                            "search": "搜索"
+                        }
+                    
+                
+            }
 
         
 

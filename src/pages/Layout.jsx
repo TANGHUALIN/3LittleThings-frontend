@@ -50,7 +50,10 @@ const LayoutPage = () => {
         <Sider width="20%" style={siderStyle}>
          <SideNav />
         </Sider>
-        <Content  style={contentStyle}><DiaryPage /></Content>
+        <Content style={contentStyle}>
+        {/* 二級ルータの出口 */}
+        <Outlet />
+        </Content>
       </Layout>
       <Footer style={footerStyle}><FooterWithAboutUs/></Footer>
     </Layout>

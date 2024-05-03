@@ -18,6 +18,10 @@ const router=createBrowserRouter(
         path:"/diary",
         element:<AuthRoute><LayoutPage /></AuthRoute>,
         children:[
+            {
+                path:'',
+                element:<DiaryPage />,
+            },
          
            {
             path:'favorite',
