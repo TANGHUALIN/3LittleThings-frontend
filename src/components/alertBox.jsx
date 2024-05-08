@@ -6,6 +6,7 @@ const AlertBox = ({alertMsg,detailedMsg,type}) => (
       description={ detailedMsg}
       type={ type }
       showIcon
+      className='w-[24rem]'
     />
 );
 export default AlertBox;

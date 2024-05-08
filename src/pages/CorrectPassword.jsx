@@ -1,88 +1,88 @@
-import React, { useState } from "react";
-import { Form, Input, Button} from "antd";
-import { MailOutlined, KeyOutlined, EyeInvisibleOutlined, EyeTwoTone, CloseOutlined } from "@ant-design/icons";
+import { useEffect,useState } from "react";
+import { Button,Form,Input,ConfigProvider } from "antd";
 import { useTranslation } from "react-i18next";
-import { signupAPI } from "../apis/userAPI";
-import AlertBox from "./AlertBox"
-import { ConfigProvider } from 'antd';
+import { MailOutlined,EyeInvisibleOutlined,KeyOutlined,CloseOutlined } from "@ant-design/icons"
+import AlertBox from "../components/AlertBox";
+import { changePasswordAPI } from "../apis/userAPI";
+import { useNavigate } from "react-router-dom";
 
 
-
-const SignupBox = ({ closeSignupBox }) => {
-  const { t } = useTranslation();
-  const [status, setStatus] = useState(null);
+const CorrectPassword = () => {
+  const [fetchComplete, setFetchComplete] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [alertMsg, setAlertMsg] = useState("");
-  const [detailedMsg, setDetailedMsg] = useState("");
-  const [type, setType] = useState("");
+  const [alertMsg, setAlertMsg] = useState('');
+  const [detailedMsg, setDetailedMsg] = useState('');
+  const [type, setType] = useState('')
 
+  const closeChangePassword=()=>{
+   navigate(-1)
+  }
+  const{t}=useTranslation()
+  const navigate=useNavigate()
   const onFinish = async (value) => {
     try {
-      const resp = await signupAPI(value)
-      console.log("resp info:", resp)
-      const statusCode = parseInt(resp.status)
-      setStatus(statusCode)
-      console.log("status," + statusCode)
-      const result = messageType(statusCode)
-      console.log(result)
-      setAlertMsg(result.alertMsg)
-      setDetailedMsg(result.detailedMsg)
-      setType(result.type)
-      console.log(result.type)
-      setShowAlert(true)
-      console.log(showAlert)
+      const resp = await changePasswordAPI(value);
+      const statusCode = parseInt(resp.status);
+      const result = messageType(statusCode);
+
+      setAlertMsg(result.alertMsg);
+      setDetailedMsg(result.detailedMsg);
+      setType(result.type);
+      setShowAlert(true);
+
+      setFetchComplete(true);
     } catch (error) {
       const statusCode = error.response.status;
-      setStatus(parseInt(statusCode))
-      console.log("status," + statusCode)
-      const result = messageType(statusCode)
-      setAlertMsg(result.alertMsg)
-      setDetailedMsg(result.detailedMsg)
-      setType(result.type)
-      console.log(result.type)
-      setShowAlert(true)
-      console.log(showAlert)
-    }
-  }
+      const result = messageType(statusCode);
 
+      setAlertMsg(result.alertMsg);
+      setDetailedMsg(result.detailedMsg);
+      setType(result.type);
+      setShowAlert(true);
+      setFetchComplete(true);
+    }
+  };
 
   const messageType = (statusCode) => {
     switch (statusCode) {
       case 202:
         return {
           type: "success",
-          alertMsg: t('signupSuccessMsg'),
-          detailedMsg: t('signupSuccessDetailedMsg'),
+          alertMsg: t('resetPasswordSuccessMsg'),
+          detailedMsg: t('resetPasswordDetailedMsg'),
         }
-      case 409:
+      case 404:
         return {
           type: "error",
-          alertMsg: t('signupFailMsg'),
-          detailedMsg: t('emailRegisteredMsg'),
-        }
-      case 429:
-        return {
-          type: "error",
-          alertMsg: t('signupFailMsg'),
-          detailedMsg: t('signupTwiceMsg'),
+          alertMsg: t('resetPasswordFailMsg'),
+          detailedMsg: t('emailIsWrong'),
         }
       case 500:
         return {
           type: "error",
-          alertMsg: t('loginFailed'),
-          detailedMsg: t('serverErrorMsg'),
+          alertMsg: t('resetPasswordFailMsg'),
+          detailedMsg: t('internalErrorMsg'),
         }
       default:
         return {
           type: "error",
-          alertMsg: t('signupFailMsg'),
-          detailedMsg: t('signupUnknownErrorMsg'),
+          alertMsg: t('resetPasswordFailMsg'),
+          detailedMsg: t('resetUnknownErrorMsg'),
         }
     }
   }
+  useEffect(() => {
+    if (fetchComplete) {
+      const timer = setTimeout(() => {
+        navigate("/")
+      }, 10000);
 
-  return (
-    <ConfigProvider
+      return () => clearTimeout(timer);
+    }
+  }, [fetchComplete]);
+
+    return (
+      <ConfigProvider
       theme={{
         token: {
           colorError: '#718096',
@@ -101,16 +101,14 @@ const SignupBox = ({ closeSignupBox }) => {
 
       {showAlert && <AlertBox alertMsg={alertMsg} detailedMsg={detailedMsg} type={type}  />}
         <Form
-          onFinish={onFinish}
-          validateTrigger="onBlur"
-          autoComplete="off"
-          name="signupForm"
-          className="bg-slate-300 rounded-2xl flex flex-col items-center w-[24rem] h-[22rem] "
-        >
-          
-          <Button className="ml-auto mr-3 mt-3" onClick={closeSignupBox} shape="circle" size="small" icon={ <CloseOutlined/>} />
-     
-          <Form.Item
+        onFinish={onFinish}
+        validateTrigger="onBlur"
+        autoComplete="off"
+        name="changePasswordForm"
+        className="bg-slate-300 rounded-2xl flex flex-col items-center w-[24rem] h-[22rem] "
+      >
+          <Button className="ml-auto mr-3 mt-3" onClick={closeChangePassword} shape="circle" size="small" icon={ <CloseOutlined/>} />
+        <Form.Item
             name="email"
             rules={[
               { required: true, message: t('pleaseInputEmail') },
@@ -159,14 +157,11 @@ const SignupBox = ({ closeSignupBox }) => {
           </Form.Item>
           <Button htmlType="submit"
             className="w-30 h-10 text-xl
-           text-slate-600 mt-4">{t('signup')}</Button>
+           text-slate-600 mt-4">{t('resetPassword')}</Button>
         </Form>
             </div>
-    </ConfigProvider>
-
-
-
-  );
-};
-
-export default SignupBox;
+    
+        </ConfigProvider>
+    )
+}
+export default CorrectPassword;

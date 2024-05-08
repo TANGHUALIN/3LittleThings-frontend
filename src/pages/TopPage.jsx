@@ -1,14 +1,15 @@
 import HeadNav from "../components/HeadNav"
-
 import SiteTitle from "../components/SiteTitle"
 import SampleDiaries from "../components/SampleDiaries"
 import SignupBox from "../components/SignupBox"
-import { Layout, Flex } from 'antd';
+import { Layout} from 'antd';
 import FooterWithAboutUs from "../components/Footer"
 import { useTranslation } from "react-i18next"
-import { processContentReturnP } from "../utils"
+import { getToken, processContentReturnP } from "../utils"
 import LoginBox from "../components/LoginBox"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import FindPasswordBox from "../components/FindPasswordBox";
+import { useNavigate } from "react-router-dom";
 const { Header, Footer,Content } = Layout;
 const TopPage=()=>{
     const headerStyle = {
@@ -31,20 +32,37 @@ const TopPage=()=>{
         textAlign: 'center',
         color: '#fff',
         backgroundColor: '#FFFFFF',
-    };
-    const {t}=useTranslation()
+    }
+    const token=getToken()
+    const navigate=useNavigate()
+    useEffect(
+      ()=>{
+        if(token){
+          navigate('/diary')
+        }
+      },[token]
+    )
+    const {t,i18n}=useTranslation()
     const introductionMsg=processContentReturnP(t('introductionMsg'))
     const welcomeMsg=processContentReturnP(t('welcomeMsg'))
     const [signupDisplay,setSignupDisplay]=useState(false)
+    const [findPasswordDisplay,setfindPasswordDisplay]=useState(false)
     const showSignupBox=()=>{
       setSignupDisplay(true)
     }
     const closeSignupBox=()=>{
         setSignupDisplay(false)
     }
-    
+    const showFindPassword=()=>{
+      setfindPasswordDisplay(true)
+    }
+    const closeFindPassword=()=>{
+      setfindPasswordDisplay(false)
+    }
+    const layoutClassName = i18n.language === 'jp' ? 'font-noto-jp' : 'font-noto-cn'
+   
 return(
-    <Layout style={layoutStyle} className="font-noto-jp">
+    <Layout style={layoutStyle} className={layoutClassName}>
       <Header style={headerStyle}>
         <div className="flex ml-10 mt-8">
       <SiteTitle />
@@ -55,6 +73,7 @@ return(
 
       <Content style={contentStyle}>
       {signupDisplay&&<SignupBox closeSignupBox={closeSignupBox}/>}
+      {findPasswordDisplay&&<FindPasswordBox closeFindPassword={closeFindPassword}/>}
         {/*sample diaries and introduction block start*/ }
         <div className="flex ">
     
@@ -70,7 +89,8 @@ return(
         {welcomeMsg}
         </div>
     <div className="ml-16 justify-center">
-      <LoginBox showSignupBox={showSignupBox}/>
+      <LoginBox showSignupBox={showSignupBox} showFindPassword={showFindPassword}/>
+
     </div>
   </div>
 </div>

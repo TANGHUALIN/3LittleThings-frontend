@@ -23,9 +23,17 @@ export function loginAPI(formData){
         data:formData
     })
 }
-export function updatePasswordAPI(formData){
+
+export function findPasswordAPI(formData){
     return request({
-        url:'/updatePassword',
+        url:'/findPassword',
+        method:'POST',
+        data:formData
+    })
+}
+export function changePasswordAPI(formData){
+    return request({
+        url:'/changePassword',
         method:'POST',
         data:formData
     })

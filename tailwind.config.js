@@ -6,11 +6,13 @@ export default {
   ],
   theme: {
     fontFamily:{
-      'noto-jp':'Noto Sans JP',
+      'noto-jp': ['Noto Sans JP', 'sans-serif'],
+      'noto-cn': ['Noto Sans SC', 'serif'],
       'sans': ['Roboto', 'Arial', 'sans-serif'],
       'serif': ['Georgia', 'serif'],
       'mono': ['Menlo', 'monospace'],
-      'inter':['Inter', 'sans-serif','Noto Sans JP','sans-serif']
+      'inter':['Inter', 'sans-serif','Noto Sans JP','sans-serif'],
+      
     },
     extend: {},
   },

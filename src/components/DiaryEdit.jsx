@@ -35,20 +35,15 @@ const DiaryEdit=({diaryEntry,handleEditable,did})=>{
     });
     
   const handleSubmit = () => {
-    console.log("formData in submit", formData);
-    // 检查是否存在待删除的条目以及待更新的条目
+    console.log("formData in submit", formData)
     if (emptyEntries.length > 0 && formData.length > 0) {
-        // 同时提交更新和删除操作
         updateEntryMutation.mutate(formData);
         deleteEntryMutation.mutate(emptyEntries);
     } else if (emptyEntries.length > 0) {
-        // 只存在待删除的条目，执行删除操作
         deleteEntryMutation.mutate(emptyEntries);
     } else if (formData.length > 0) {
-        // 只存在待更新的条目，执行更新操作
         updateEntryMutation.mutate(formData);
     } else {
-        // 两者都不存在，不执行任何操作
         console.log("No entries to update or delete.");
     }
     handleEditable();
@@ -57,24 +52,17 @@ const DiaryEdit=({diaryEntry,handleEditable,did})=>{
      const handleChange = (e) => {
         const { value, id } = e.target;
         const valueWithoutDot = value.startsWith("・") ? value.substring(1) : value;
-    
-        // 如果值为空，将对应的eid添加到emptyEntries数组中
         if (!valueWithoutDot) {
             setFormData(prevData => prevData.filter(entry => entry[id] === undefined))
             setEmptyEntries(prevEmptyEntries => [...prevEmptyEntries, id]);
         } else {
-            // 否则更新formData
             const newDiaryEntry = { [id]: valueWithoutDot };
             setEmptyEntries(prevEids => prevEids.filter(eid => eid !== id));
             setFormData(prevFormData => {
-                // 检查是否已经存在具有相同 id 的条目
                 const existingIndex = prevFormData.findIndex(item => item[id]);
-                
-                // 如果已经存在具有相同 id 的条目，则覆盖它
                 if (existingIndex !== -1) {
                     return prevFormData.map((diaryEntry, idx) => idx === existingIndex ? newDiaryEntry : diaryEntry);
                 } else {
-                    // 否则，添加新的日记条目到数组末尾
                     return [...prevFormData, newDiaryEntry];
                 }
             });
@@ -116,7 +104,7 @@ return(
           />
         </Form.Item>
       ))}
-   <CheckOutlined className="w-10 h-10 text-3xl hover:text-slate-500" onClick={handleSubmit}/>
+   <CheckOutlined className="w-4 h-4 text-3xl mt-4 hover:text-slate-500" onClick={handleSubmit}/>
      </Form>
      </ConfigProvider>
     

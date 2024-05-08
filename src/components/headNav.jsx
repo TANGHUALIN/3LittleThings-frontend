@@ -1,17 +1,16 @@
 
 import { useEffect,useState } from "react"
-import { getToken } from "../utils"
+import { getToken, removeToken } from "../utils"
 import { getItem } from "../utils"
 import { ConfigProvider, Menu,Popconfirm } from "antd"
 import { useTranslation } from "react-i18next"
-import classNames from "classnames"
 import { useNavigate } from "react-router-dom"
 const HeadNav=()=>{
 const navigate=useNavigate()
 const[accountState,setAccountState]=useState(false)
 
 useEffect(()=>{
-  const token=getToken();
+  const token=getToken()
   if(token){
     setAccountState(true)
   }else{
@@ -21,23 +20,21 @@ useEffect(()=>{
 
 
 const { t,i18n } = useTranslation();
-const [currentLanguage,setCurrentLanguage]=useState(i18n.language);
+
+
 const changeLanguage=(lang)=>{
-  i18n.changeLanguage(lang);
-  setCurrentLanguage(lang);
+  i18n.changeLanguage(lang)
 }
 
 
-const onConfirm=()=>{
-    console.log('log out')
-    removeToken()
-    navigate('/')
-}
-const [current, setCurrent] = useState('mail');
+
+const [current, setCurrent] = useState()
 const onClick = (e) => {
   console.log('click ', e);
   if(e.key==='logout'){
-
+    setAccountState(false)
+    removeToken()
+    navigate('/')
   }else{
     setCurrent(e.key)
     switch(e.key){
@@ -47,45 +44,57 @@ const onClick = (e) => {
       case 'en':
         changeLanguage('en')
         break
+      case 'cn':
+        changeLanguage('cn')
+        break
+      case 'change_password':
+        navigate('/changepassword')
+        break
       default:
         break
 
     }
   }
-};
+}
 const items = [
-    getItem(t('theme'), 'theme',null),
-    getItem(
-        (t('language')), 'language',null,
-        [getItem('English','en',null),
-        getItem('日本語','jp',null),
-        ]
-    ),
-    accountState&&getItem((<Popconfirm
-      title={t('logoutConfirmMsg')}
-      onConfirm={onConfirm}
-      okText={t('yes')}
-      cancelText={t('no')}>
-     { t('account')}
-      </Popconfirm>
+  getItem(
+    t('language'), 
+    'language',
+    null,
+    [
+      getItem('English', 'en', null),
+      getItem('日本語', 'jp', null),
+      getItem('中文', 'cn', null),
+    ]
   ),
+  accountState && getItem(
+    t('account'),
+    'account',
+    null,
+    [
+      getItem(t('changePassword'), 'change_password', null),
+      getItem(
+       (
   
-  
-  '3',
-  null,
-  [getItem(t('changePassword'),'change_password',null),
-  getItem(t('logout'),'logout',null)
-  ]
-  
-       
-      ),
-    ].filter(Boolean);
+            t('logout')
+      
+        ),
+        'logout',
+        null
+      )
+    ]
+  ),
+].filter(Boolean);
+
+
+
 return(
   <ConfigProvider
   theme={{
     token: {
       borderRadius: 0,
       fontSize:20,
+      colorPrimary:'#6495ED',
     },
    
     components: {

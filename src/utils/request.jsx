@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "./token";
+import { getToken, removeToken } from "./token";
 
 const request = axios.create({
     baseURL: 'http://localhost:8080/3LittleThings',
@@ -7,31 +7,37 @@ const request = axios.create({
 });
 
 request.interceptors.request.use(function (config) {
-    const token=getToken();
+    const token = getToken();
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`; // 注意这里使用了反引号 `` 而不是单引号 ''
+        console.log("token in request interceptors", token);
+        config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 }, function (error) {
     return Promise.reject(error);
 });
-//レスポンスがクライアントに戻る前に、レスポンスを処理する
+
+// 在拦截器中使用路由实例
+// 通过参数传递
 request.interceptors.response.use(function (response) {
-    //もしstatus codeが2XX
+    // 如果status code是2XX
     return response;
 }, function (error) {
-    //もしstatus codeが2xxの範囲を超えると
-    //レスポンスエラーに対して何をする
-    //401時に、token無効
-    console.dir(error)
-    const statusCode=error.response.status
-    if(statusCode===401){
+    // 如果status code不是2xx范围内
+    // 对响应错误做处理
+    console.dir(error);
+    const statusCode = error.response.status;
+    if (statusCode === 401) {
         removeToken()
-        router.navigate('/')
-        window.location.reload()
+        redirectToHomePage()
     }
     return Promise.reject(error)
 });
 
 
+function redirectToHomePage() {
+    window.location.href = '/'
+}
+
 export { request };
+

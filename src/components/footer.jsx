@@ -1,17 +1,13 @@
-import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import FooterFormat from "./FooterFormat"
 const FooterWithAboutUs=()=>{
-    const {t}=useTranslation()
     const navigate=useNavigate()
+    const backTo='aboutSite'
     const onClick=(e)=>{
         navigate('/aboutsite')
     }
     return(
-        <div className="w-full  text-zinc-800 font-normal content-center text-base mb-0">
-            <span>©3LittleThings/</span>
-            <a onClick={onClick} className="text-zinc-800 hover:text-slate-500">{t('aboutSite')}</a>
-        </div>
-        
+       <FooterFormat onClick={onClick} backTo={backTo}/>
     )
 }
 export default FooterWithAboutUs;

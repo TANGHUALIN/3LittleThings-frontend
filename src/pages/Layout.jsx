@@ -31,6 +31,7 @@ const footerStyle = {
   textAlign: 'center',
   color: '#fff',
   backgroundColor: '#fff',
+  height:'10%'
 };
 const layoutStyle = {
   height: '100%'

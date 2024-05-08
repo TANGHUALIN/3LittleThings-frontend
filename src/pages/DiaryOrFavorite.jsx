@@ -15,45 +15,15 @@ import SearchBox from "../components/SearchBox";
 import CalendarBox from "../components/CalendarBox";
 import { useInView } from "react-intersection-observer";
 
-const DiaryOrFavorite=()=>{
+const DiaryOrFavorite=({favorite})=>{
     
   
 const {t}=useTranslation()
 
       const queryClient = useQueryClient()
       const diaryList=queryClient.getQueryData('diaryList')
-      const [showDiary,setShowDiary]=useState(true)
-      const [displayDiary,setDisplayDiary]=useState([])
-      const addMutation = useMutation({
-          //コンポーネントのレンダリングの同時に関数の実行を避けるために、mutationFnは関数の定義
-        mutationFn: (formData)=>addNewDiary(formData),
-        onSuccess: (data) => {
-          try {
-            queryClient.setQueryData(['diaryList', data.did], (existingDiary) => {
-              if (!existingDiary) {
-                return {
-                  did: data.did,
-                  diaryDate: data.diaryDate,
-                  diaryEntry: [data],
-                  favoriteState: false,
-                };
-              }
-              return {
-                ...existingDiary,
-                diaryEntry: [...(existingDiary.diaryEntry || []), data],
-              }
-              
-            })
-          } catch (error) {
-            console.error("Failed to update existing diary:", error);
-          }
-       refetch()
-        },
-        onError: (error) => {
-          console.log(error);
-        },
-      });
-      const formRef = useRef(null);
+      const [displayDiary,setDisplayDiary]=useState()
+     
  const handleSubmit =() => {
     formRef.current.validateFields().then((values) => {
       console.log('Received values of form:', values)
@@ -70,25 +40,14 @@ const {t}=useTranslation()
     setSearchKeyword(keyword);
   }
 
-  useEffect(() => {
-    if (searchKeyword) {
-      console.log("searchKw",searchKeyword)
-      const filteredDiaryList = data.page.filter((diary) => (
-      diary.diaryEntry.some((entry) => 
-         (entry.entryContent.includes(searchKeyword)))
-    ))
-      setDisplayDiary(filteredDiaryList)
-    } else {
-      setDisplayDiary(diaryList);
-    }
-  }, [searchKeyword, diaryList]);
-
+  
+console.log("display diary",displayDiary)
 
   const {
     fetchNextPage,
     hasNextPage,
     data,
-    refetch
+    isLoading
   } = useInfiniteQuery({
     queryKey:['diaryList'],
     queryFn: ({ pageParam}) => fetchDiaryList(pageParam),
@@ -96,9 +55,46 @@ const {t}=useTranslation()
     getNextPageParam:(lastPage,pages) => lastPage.meta.nextPage
     
   })
+
+  useEffect(() => {
+    if (!isLoading && data && data.pages && data.pages.length > 0) {
+      let sortedDiaries = []
+      const allDiaries = data.pages.flatMap(page => page.data);
+  
+      
+      sortedDiaries = allDiaries.sort((a, b) => {
+        return new Date(b.diaryDate) - new Date(a.diaryDate);
+      })
+  
+      let filteredDiaries = []
+  
+      if (searchKeyword && favorite) {
+        filteredDiaries = sortedDiaries.filter(diary =>
+          diary.favoriteState === true && diary.diaryEntry.some(entry =>
+            entry.entryContent.includes(searchKeyword)
+          )
+        );
+      } else if (favorite) {
+        filteredDiaries = sortedDiaries.filter(diary => diary.favoriteState === true);
+      } else if (searchKeyword) {
+        filteredDiaries = sortedDiaries.filter(diary =>
+          diary.diaryEntry.some(entry => entry.entryContent.includes(searchKeyword))
+        );
+      } else {
+        filteredDiaries = sortedDiaries;
+      }
+  
+      setDisplayDiary(filteredDiaries);
+    }
+  }, [searchKeyword, favorite, isLoading, data]);
+  
+
+   
+  
+  
 console.log("data with pageInfo",data)
 {/*Intersection　Observation */}
-const loadingRef = useRef(null);
+
 
 const {ref,inView}=useInView()
 console.log("inview",inView)
@@ -110,14 +106,27 @@ useEffect(() => {
     fetchNextPage();
   }
 }, [inView, hasNextPage, fetchNextPage]);
+const addMutation = useMutation({
+mutationFn: (formData)=>addNewDiary(formData),
+onSuccess: () => {  
+queryClient.invalidateQueries('diaryList')
+},
+onError: (error) => {
+  console.log(error);
+},
+});
+const formRef = useRef(null);
 
 return (
   <ConfigProvider
-    theme={{
-      token: {
-      },
-    }}
-  >
+  theme={{
+    token: {
+      colorError:'#718096',
+      colorPrimary:'#718096',
+    },
+  
+  }}
+>
     <div>
       <Form ref={formRef} className="flex w-full mb-0">
         <Form.Item
@@ -134,28 +143,25 @@ return (
         </Form.Item>
       </Form>
       <div className="flex ml-20 items-center h-0.5 mb-6">
-        <CalendarBox />
+    
         <SearchBox onSearch={handleSearch}/>
       </div>
-      {/* diary display area */}
-      {data && data.pages && (
-        <div className="w-2/3 ml-20">
-          <wc-waterfall gap={10} cols={4}>
-            {data.pages.map((page, pageIndex) => (
-              Array.isArray(page.data) && (
-                <React.Fragment key={pageIndex}>
-                  {page.data.map((item) => (
-                    <div key={item.did}>
-                      <Diary key={item.did} diary={item} keyword={searchKeyword} />
-                    </div>
-                  ))}
-                </React.Fragment>
-              )
-            ))}
-          </wc-waterfall>
-        </div>
-      )}
-      <div ref={ref} className="h-0 hidden"></div> 
+  {/* diary display area */}
+<div className="w-2/3 ml-20">
+  {displayDiary && displayDiary.length > 0 && (
+    <wc-waterfall gap={10} cols={4}>
+      {displayDiary.map((item) => (
+        item && item.did && ( 
+          <div key={item.did}>
+            <Diary key={item.did} diary={item} keyword={searchKeyword} />
+          </div>
+        )
+      ))}
+    </wc-waterfall>
+  )}
+</div>
+   
+      <div ref={ref} ></div> 
     </div>
   </ConfigProvider>
 );

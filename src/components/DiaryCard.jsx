@@ -1,10 +1,12 @@
 import { HeartFilled,HeartOutlined,DeleteOutlined,EditOutlined,CheckOutlined} from "@ant-design/icons"
-
+import { useTranslation } from "react-i18next";
 
 const DiaryCard=({contentList,handleDeleteDiary,handleEditDiary,clickHeart,favoriteState})=>{
-   
+    const {i18n}=useTranslation()
+    const layoutClassName = i18n.language === 'jp' ? 'font-noto-jp' : 'font-noto-cn';
+
     return(
-        <div>
+        <div className={layoutClassName}>
         {contentList}
       <div className="flex">
        <div onClick={handleDeleteDiary}><DeleteOutlined /></div>

@@ -27,21 +27,25 @@ const CalendarComponent = () => {
   const onChange = (value) => {
  
   };
+  const wrapperStyle = {
+    width: 200,
+  };
 
   return (
     <ConfigProvider
       locale={currentLanguage === 'cn' ? "zh_CN" : currentLanguage === 'jp' ? "ja_JP" : "en_US"}
       theme={{
-        color: {
-          primary: '#718096',
-        },
-        datePicker: {
-          activeBorderColor: '#718899',
-        },
+        components: {
+          Calendar: {
+            fullBg:'#fff',
+            fullPanelBg:'#fff'
+          },
+        }
       }}
     >
-      
-      <Calendar fullscreen={false} onChange={onChange} />
+       <div style={wrapperStyle}>
+      <Calendar fullscreen={false} onChange={onChange} className=' w-50'/>
+      </div>
     </ConfigProvider>
   );
 };

@@ -1,24 +1,16 @@
 import React, { useState,useRef } from 'react';
-import { Space } from 'antd';
-import i18n from '../i18n/i18n';
 import { useTranslation } from 'react-i18next';
-import CalendarComponent from './Calendar';
-import classNames from 'classnames';
+
 import { useNavigate } from 'react-router-dom';
 import { getItem } from '../utils';
 import { useLocation } from 'react-router-dom';
-import { useMutation, useQuery,useQueryClient } from '@tanstack/react-query';
 import {
   HeartOutlined,
-  CalendarOutlined,
-  SearchOutlined,
   BarsOutlined ,
   LineOutlined,
-  SwapOutlined
-  
 } from '@ant-design/icons';
-import { Divider, Menu, Switch,Input,Button } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { Menu,ConfigProvider } from 'antd';
+
 
 
 const SideNav=()=>{
@@ -47,6 +39,19 @@ const selectedKey=[location.pathname]
       ];
 
 return(
+  <ConfigProvider
+  theme={{
+    token: {
+      colorError: '#718096',
+      colorPrimary: '#6495ED',
+    },
+    components: {
+      Menu: {
+        horizontalItemSelectedColor:''
+      },
+    },
+  }}
+>
         <div className="ml-10">
         <Menu
         style={{
@@ -60,6 +65,7 @@ return(
       />
     
       </div>
+      </ConfigProvider>
         )
     }
 export default SideNav;

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { verifyAPI } from '../apis/userAPI';
+import { verifyAPI} from '../apis/userAPI';
 import { setToken } from '../utils';
 
-function LoadingPage() {
+function LoadingPage2() {
   const navigate = useNavigate();
   const params = useParams();
   const { temptoken } = params;
@@ -14,15 +14,12 @@ function LoadingPage() {
         const data = await verifyAPI(temptoken)
         console.log("res in loading",data)
         const token=data.headers['authorization'].split(' ')[1]
-        console.log(token)
         if (token) {
-          console.log("token in loading1",token)
           setToken(token)
-          navigate('/diary')
+          navigate('/changepassword')
         }
       } catch (error) {
-        console.log("error",error)
-        navigate('/')
+       console.log("error",error)
       }
     }
     fetchToken()
@@ -35,4 +32,4 @@ function LoadingPage() {
   );
 }
 
-export default LoadingPage;
+export default LoadingPage2;

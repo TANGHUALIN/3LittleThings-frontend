@@ -18,7 +18,7 @@ const DiaryPage=()=>{
     const {t}=useTranslation()
 
       return (
-        <DiaryOrFavorite   />
+        <DiaryOrFavorite  favorite={undefined} />
       )
 }
 export default DiaryPage

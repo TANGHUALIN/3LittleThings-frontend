@@ -15,7 +15,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { fetchTokenWhenLogin } from "../queryFN/userFN";
 import { loginAPI } from "../apis/userAPI";
 
-const LoginBox = ({showSignupBox}) => {
+const LoginBox = ({showSignupBox,showFindPassword}) => {
   
     const { t } = useTranslation()
     const navigate=useNavigate()
@@ -33,9 +33,9 @@ const LoginBox = ({showSignupBox}) => {
         navigate('/diary')
       }catch (error) {
         console.log(error)
-        const statusCode = error? error.status : null
+        const statusCode = error.response.status
         setStatus(parseInt(statusCode))
-        console.log("status," + statusCode)
+        console.log("status,",error.response.status)
         const result = messageType(statusCode)
         setDetailedMsg(result.detailedMsg)
         setShowAlert(true)
@@ -50,6 +50,10 @@ const LoginBox = ({showSignupBox}) => {
         case 500:
           return {
             detailedMsg: t('serverErrorMsg'),
+          }
+        case 400:
+          return {
+            detailedMsg: t('wrongPassword'),
           }
         default:
           return {
@@ -120,9 +124,9 @@ const LoginBox = ({showSignupBox}) => {
 />
 </Form.Item>
 <div className="flex items-center space-x-2 mb-4">
-    <button onClick={showSignupBox} className="border-none bg-transparent text-sm font-medium text-gray-600 hover:text-gray-900">{t('signup')}</button>
+    <a onClick={showSignupBox} className="border-none bg-transparent text-sm font-medium text-gray-600 hover:text-gray-900">{t('signup')}</a>
     <span className="h-4 w-px bg-gray-900" aria-hidden="true"></span>
-    <button className="border-none bg-transparent text-sm font-medium text-gray-600 hover:text-gray-900">{t('forgotPassword')}</button>
+    <a onClick={showFindPassword} className="border-none bg-transparent text-sm font-medium text-gray-600 hover:text-gray-900">{t('forgotPassword')}</a>
 </div>
 <Button
         htmlType="submit" 
