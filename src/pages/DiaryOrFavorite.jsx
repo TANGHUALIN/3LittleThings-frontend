@@ -1,13 +1,11 @@
 import { useEffect, useState,useRef } from "react"
-import React from 'react';
-import { useNavigate } from "react-router"
+import React from 'react'
 import { useMutation } from "@tanstack/react-query";
 import { Form,Button,Input,ConfigProvider} from "antd";
 import { SendOutlined} from '@ant-design/icons';
 import Diary from "../components/DiaryFormat";
 import { useTranslation } from "react-i18next";
 import 'wc-waterfall'
-import { useQuery } from "@tanstack/react-query";
 import { fetchDiaryList } from "../queryFN/diaryFN";
 import { useQueryClient,useInfiniteQuery} from "@tanstack/react-query";
 import { addNewDiary } from "../mutationFN/diaryFN";
@@ -41,7 +39,7 @@ const {t}=useTranslation()
   }
 
   
-console.log("display diary",displayDiary)
+
 
   const {
     fetchNextPage,
@@ -55,38 +53,42 @@ console.log("display diary",displayDiary)
     getNextPageParam:(lastPage,pages) => lastPage.meta.nextPage
     
   })
-
   useEffect(() => {
     if (!isLoading && data && data.pages && data.pages.length > 0) {
-      let sortedDiaries = []
+      let sortedDiaries = [];
       const allDiaries = data.pages.flatMap(page => page.data);
-  
-      
       sortedDiaries = allDiaries.sort((a, b) => {
         return new Date(b.diaryDate) - new Date(a.diaryDate);
-      })
-  
-      let filteredDiaries = []
-  
+      });
+      let filteredDiaries = [];
       if (searchKeyword && favorite) {
-        filteredDiaries = sortedDiaries.filter(diary =>
-          diary.favoriteState === true && diary.diaryEntry.some(entry =>
+        filteredDiaries = sortedDiaries.filter(diary => {
+          console.log('Filtering diary:', diary);
+          return diary && diary.favoriteState === true && diary.diaryEntry.some(entry =>
             entry.entryContent.includes(searchKeyword)
-          )
-        );
+          );
+        });
       } else if (favorite) {
-        filteredDiaries = sortedDiaries.filter(diary => diary.favoriteState === true);
+        filteredDiaries = sortedDiaries.filter(diary => {
+          console.log('Filtering diary:', diary);
+          return diary && diary.favoriteState === true;
+        });
       } else if (searchKeyword) {
-        filteredDiaries = sortedDiaries.filter(diary =>
-          diary.diaryEntry.some(entry => entry.entryContent.includes(searchKeyword))
-        );
+        filteredDiaries = sortedDiaries.filter(diary => {
+          console.log('Filtering diary:', diary);
+          return diary && diary.diaryEntry.some(entry => entry.entryContent.includes(searchKeyword));
+        });
       } else {
         filteredDiaries = sortedDiaries;
       }
   
       setDisplayDiary(filteredDiaries);
+    } else{
+      setDisplayDiary(undefined)
     }
   }, [searchKeyword, favorite, isLoading, data]);
+  
+
   
 
    
@@ -164,7 +166,7 @@ return (
       <div ref={ref} ></div> 
     </div>
   </ConfigProvider>
-);
+)
 
 }
 export default DiaryOrFavorite

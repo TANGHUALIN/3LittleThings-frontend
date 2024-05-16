@@ -5,7 +5,7 @@ import { MailOutlined,EyeInvisibleOutlined,KeyOutlined,CloseOutlined } from "@an
 import AlertBox from "../components/AlertBox";
 import { changePasswordAPI } from "../apis/userAPI";
 import { useNavigate } from "react-router-dom";
-
+import {removeToken } from "../utils/token"
 
 const CorrectPassword = () => {
   const [fetchComplete, setFetchComplete] = useState(false);
@@ -28,8 +28,7 @@ const CorrectPassword = () => {
       setAlertMsg(result.alertMsg);
       setDetailedMsg(result.detailedMsg);
       setType(result.type);
-      setShowAlert(true);
-
+      setShowAlert(true)
       setFetchComplete(true);
     } catch (error) {
       const statusCode = error.response.status;
@@ -74,6 +73,7 @@ const CorrectPassword = () => {
   useEffect(() => {
     if (fetchComplete) {
       const timer = setTimeout(() => {
+        removeToken()
         navigate("/")
       }, 10000);
 

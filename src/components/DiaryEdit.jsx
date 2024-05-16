@@ -104,7 +104,7 @@ return(
           />
         </Form.Item>
       ))}
-   <CheckOutlined className="w-4 h-4 text-3xl mt-4 hover:text-slate-500" onClick={handleSubmit}/>
+   <CheckOutlined className="w-4 h-4 text-3xl mt-4 cursor-pointer hover:text-slate-400" onClick={handleSubmit}/>
      </Form>
      </ConfigProvider>
     

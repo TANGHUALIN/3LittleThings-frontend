@@ -45,10 +45,10 @@ i18n
                     passwordUnmatchMsg:'Passwords do not match.Please enter your password again.',
                     passwordConfirm:'Confirm password',
                     signupSuccessMsg:'Registration successful',
-                    signupSuccessDetailedMsg:'Please check your email and click the verification link within five minutes to complete the login verification.',
+                    signupSuccessDetailedMsg:'Please check your email and click the verification link within 5 minutes to complete the login verification.If you did not receive the email, please check your spam email. If you still have not received it after 2-3 minutes, please try registering again after 5 minutes.',
                     findPasswordFailMsg: "Failed to send verification email",
                     findPasswordSuccessMsg: "Verification email sent successfully",
-                    findPasswordDetailedMsg: "Please check your email and click the verification link within five minutes to complete password reset.",
+                    findPasswordDetailedMsg: "Please check your email and click the verification link within 5 minutes to complete password reset.If you did not receive the email, please check your spam email. If you still have not received it after 2-3 minutes, please try resetting again after 5 minutes.",
                     signupFailMsg:'Registration failed',
                     signupUnknownErrorMsg:'Unknown Error',
                     emailRegisteredMsg:'This email has already been registered. Please return to the toppage to log in.',
@@ -66,7 +66,7 @@ diary5: `Completed the login function.\nCompleted the diary editing function.\nE
 diary6: `Washed the dishes.\nWatched a movie.\nFinished homework.`,
 diary4: `Did volunteer work.\nPlayed ball with children.\nStudied at a cafe.`,
 wrongPassword:'Incorrect Password',
-
+sendEmail:'Send Email',
 resetPasswordSuccessMsg: 'Password reset successfully.',
 resetPasswordDetailedMsg: 'Returning to homepage in 10 seconds. Please log in again.',
 resetPasswordFailMsg: 'Failed to reset password.',
@@ -84,11 +84,13 @@ abouteTheSiteDetail:`I hope this simple website can help you regain the joy of l
 emailInfo:`Thank you for reading, and I hope you enjoy using it!\nPlease send any suggestions, feedback, or questions to: 3littlethingsdiary@gmail.com`,
 clickToLinkGithub:'Please check my Github to view the source code: ',
 finalMsg:`Finally, thanks to everyone who helped me during the development process.\n2024/05/08 TANG`,
-
+noContentMsg:'Please check your timeline after send your first diary.',
+noFavoriteMsg:'There is no favorite diary.'
                 },
             },
             jp:{
                 translation:{
+                    noContentMsg:'日記を送信してからタイムラインをご覧ください。',
                     language:'言語',
                     about:'サイトについて',
                     theme:'テーマ',
@@ -125,7 +127,7 @@ finalMsg:`Finally, thanks to everyone who helped me during the development proce
                     passwordUnmatchMsg:'パスワードが一致しません。パスワードをもう一度入力してください。',
                     passwordConfirm:'パスワードの確認',
                     signupSuccessMsg:'登録成功',
-                    signupSuccessDetailedMsg:'メールを確認して、5分以内に確認リンクをクリックしてログイン認証を完了してください。',
+                    signupSuccessDetailedMsg:'メールを確認し、5分以内に認証リンクをクリックして、登録認証を完了してください。メールが届かない場合は、迷惑メールを確認してください。2-3分経ってもメールが届かない場合は、5分後に再度登録をお試しください。',
                     signupFailMsg:'登録失敗',
                     emailRegisteredMsg:'このメールアドレスはすでに登録されています。トップページに戻ってログインしてください。',
                     serverErrorMsg:'サーバーエラーが発生しました。しばらくしてからもう一度お試しください。',
@@ -145,7 +147,7 @@ finalMsg:`Finally, thanks to everyone who helped me during the development proce
                     
                         findPasswordFailMsg: "メールの送信に失敗しました。",
                         findPasswordSuccessMsg: "確認メールが送信されました。",
-                        findPasswordDetailedMsg: "メールを確認し、5分以内に確認リンクをクリックしてパスワードのリセットを完了してください。",
+                        findPasswordDetailedMsg: "メールを確認し、5分以内に確認リンクをクリックしてパスワードのリセットを完了してください。メールが届かない場合は、迷惑メールフォルダを確認してください。2-3分経ってもメールが届かない場合は、5分後に再度リセットをお試しください。",
                     
 resetPasswordSuccessMsg:'リセット成功',
 resetPasswordDetailedMsg:'10秒後にトップページに戻り、再度ログインしてください。',
@@ -165,7 +167,8 @@ abouteTheSiteDetail:`シンプルなサイトですが、プレッシャーを�
 emailInfo:`最後まで読んでくれてありがとうございます！ご利用を楽しんでください！\nご意見や感想、質問はこちらまでお送りください: 3littlethingsdiary@gmail.com`,
 clickToLinkGithub:'ソースコードをご覧になる場合は、GitHubでチェックしてください：',
 finalMsg:`最後に、助けてくれた先生と友達に感謝します。\n2024/05/08 TANG`,
-back:'戻る'                  
+back:'戻る',
+noFavoriteMsg:'いいねした日記がありません。',                 
 
                 },
             },
@@ -173,6 +176,7 @@ back:'戻る'
             
                     
                         translation: {
+                            noContentMsg:'请发送日记后再来查看时间线。',
                             language: "语言",
                             about: "关于我们",
                             theme: "主题",
@@ -209,14 +213,14 @@ back:'戻る'
                             "passwordUnmatchMsg": "密码不匹配。请重新输入您的密码。",
                             "passwordConfirm": "确认密码",
                             "signupSuccessMsg": "注册成功",
-                            "signupSuccessDetailedMsg": "请检查您的邮箱，在五分钟内点击验证链接，完成注册验证。",
+                            "signupSuccessDetailedMsg": "请检查您的邮箱，在5分钟内点击验证链接，完成注册验证。如果没有收到邮件，请去垃圾邮件里查找。如果2-3分钟还没收到，请5分钟之后重新尝试注册。",
                             findPasswordFailMsg:'验证邮件发送失败',
                             findPasswordSuccessMsg:'验证邮件发送成功',
-                            findPasswordDetailedMsg:'请检查您的邮箱，在五分钟内点击验证链接，完成修改密码。',
+                            findPasswordDetailedMsg:'请检查您的邮箱，在5分钟内点击验证链接，完成修改密码。如果没有收到邮件，请去垃圾邮件里查找。如果2-3分钟还没收到，请5分钟之后重新尝试重置。',
                             signupFailMsg: "注册失败",
                             emailRegisteredMsg: "该邮箱已被注册。请返回首页登录。",
                             serverErrorMsg: "服务器错误。请稍后重试。",
-                            signupTwiceMsg: "请不要在五分钟内重复尝试注册。请检查您的邮箱，并点击链接完成注册。如果您没有收到邮件，请在五分钟后重试。",
+                            signupTwiceMsg: "请不要在5分钟内重复尝试注册。请检查您的邮箱，并点击链接完成注册。如果您没有收到邮件，请在5分钟后重试。",
                             introductionMsg: "轻松记录每天的事件、灵感和思考，无论是学习、工作还是生活，就像发送消息一样。可以以时间线形式轻松回顾您的过去。",
                             loginFailed: "登录失败",
                             signupUnknownErrorMsg:'未知的错误',
@@ -229,7 +233,6 @@ diary3: `吃了蔬菜。\n早起成功。\n做了家务。`,
 diary5: `完成了登录功能。\n完成了日记编辑功能。\n吃了好吃的刨冰。`,
 diary6: `洗了盘子。\n看了电影。\n完成了作业。`,
 diary4: `做了志愿者活动。\n和孩子一起玩球。\n在咖啡厅学习。`,
-
 
 resetPasswordSuccessMsg:'密码重置成功',
 resetPasswordDetailedMsg:'10秒后返回首页，请重新登录。',
@@ -249,6 +252,7 @@ abouteTheSiteDetail:`我希望这个简单的网站能够让您在不感受压�
 emailInfo:`感谢您的阅读，祝您使用愉快！\n有任何建议和感想和问题请发送至：3littlethingsdiary@gmail.com`,
 clickToLinkGithub:'想看源码的话，请查看我的Github：',
 finalMsg:`最后，感谢帮助我的老师和朋友们！\n2024/05/08 TANG`,
+noFavoriteMsg:'您还没有收藏任何日记。', 
                         }
                     
                 

@@ -55,7 +55,7 @@ return(
         <div className="ml-10">
         <Menu
         style={{
-          width: 180,
+          minWidth: '180px', width: 'auto'
         }}
         selectedKeys={selectedKey}
         onClick={onMenuClick}

@@ -20,6 +20,7 @@ function LoadingPage2() {
         }
       } catch (error) {
        console.log("error",error)
+       navigate('/')
       }
     }
     fetchToken()

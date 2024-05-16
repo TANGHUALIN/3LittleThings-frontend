@@ -69,7 +69,7 @@ const SignupBox = ({ closeSignupBox }) => {
       case 500:
         return {
           type: "error",
-          alertMsg: t('loginFailed'),
+          alertMsg: t('signupFailMsg'),
           detailedMsg: t('serverErrorMsg'),
         }
       default:

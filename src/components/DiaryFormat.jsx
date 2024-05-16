@@ -11,19 +11,12 @@ import DiaryEdit from "./DiaryEdit";
 import DiaryCard from "./DiaryCard";
 
 const Diary=({diary,keyword})=>{
-
   const[content,setContent]=useState(diary)
   const[isEditing,setIsEditing]=useState(false)
   const [favoriteState, setFavoriteState] = useState(diary.favoriteState);
 const {t}=useTranslation()
-  
-
 const [form]=Form.useForm()
-
 const queryClient = useQueryClient()
-
-
- 
   let contentList;
   if(diary.diaryEntry){
     contentList = processEntryReturnLi(diary.diaryEntry,keyword)
@@ -33,9 +26,7 @@ const queryClient = useQueryClient()
     if(diary.diaryEntry){
       contentListEditable= processEntryReturnP(diary.diaryEntry)}
       else{ contentList=null }
-    
   const clickHeart=()=>{
-    console.log("clicked",)
     try{
       favoriteStateMutation.mutate([diary.did,!favoriteState])
     setFavoriteState(!favoriteState)
@@ -45,16 +36,8 @@ const queryClient = useQueryClient()
   }
   const favoriteStateMutation=useMutation({
     mutationFn: ([did,fS])=>updateFavoriteState(did,fS),
-    onSuccess: (data) => {
+    onSuccess: () => {
       console.log("Mutation succeeded with data:", data)
-      if(data.status === 200){
-        queryClient.setQueryData(['diaryList', data.did], (existingDiary) => {
-          return {
-            ...existingDiary,
-            favoriteState: !existingDiary.favoriteState
-          };
-        });
-      }
       queryClient.invalidateQueries('diaryList');
     },    
       onError: (error) => {

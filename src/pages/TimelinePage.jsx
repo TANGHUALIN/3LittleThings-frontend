@@ -2,11 +2,13 @@ import { Timeline,ConfigProvider } from 'antd';
 import { processEntryReturnP } from '../utils';
 import { useInfiniteQuery} from '@tanstack/react-query';
 import { fetchDiaryList } from '../queryFN/diaryFN';
-import TimelineComponent from '../components/TimelineFormat';
 import { useInView } from "react-intersection-observer";
 import { useEffect,useState } from 'react';
+import { useTranslation } from "react-i18next";
+
 const TimelinePage = () => {
-  const [diaryList, setDiaryList] = useState([])
+  const [diaryList, setDiaryList] = useState([]);
+  const { t } = useTranslation();
 
   const {
     fetchNextPage,
@@ -14,19 +16,17 @@ const TimelinePage = () => {
     data,
     isLoading
   } = useInfiniteQuery({
-    queryKey:['diaryList'],
-    queryFn: ({ pageParam}) => fetchDiaryList(pageParam),
-    initialPageParam:1,
-    getNextPageParam:(lastPage,pages) => lastPage.meta.nextPage
+    queryKey: ['diaryList'],
+    queryFn: ({ pageParam }) => fetchDiaryList(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.meta.nextPage,
   });
 
   useEffect(() => {
-    if (!isLoading && data) {
+    if (!isLoading && data && data.pages) {
       const allDiaries = data.pages.flatMap(page => page.data);
-      const sortedDiaries = allDiaries.sort((a, b) => {
-        return new Date(b.diaryDate) - new Date(a.diaryDate);
-      })
-      setDiaryList(sortedDiaries); 
+      const sortedDiaries = allDiaries.sort((a, b) => new Date(b.diaryDate) - new Date(a.diaryDate));
+      setDiaryList(sortedDiaries);
     }
   }, [isLoading, data]);
 
@@ -37,40 +37,54 @@ const TimelinePage = () => {
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
-  const timelineItems = diaryList.flatMap(diary => {
-    const entryList = diary.diaryEntry.map(entry => `<p>${entry.entryContent}</p>`).join('');
-    const dateItem = { 
-      color: '#718096',
-      children: (
-      <>
-        <p className=''>{diary.diaryDate}</p>
-        <div dangerouslySetInnerHTML={{ __html: entryList }} />
-      </>
-    )};
-    return [dateItem];
-  });
-  
-  
+
+  const timelineItems = diaryList.length > 0 
+    ? diaryList.flatMap(diary => {
+        if (!diary || !diary.diaryEntry) {
+          return []; 
+        }
+
+        const entryList = diary.diaryEntry.map(entry => {
+          if (!entry) return ''; 
+          return `<p>${entry.entryContent}</p>`;
+        }).join('');
+
+        return { 
+          color: '#718096',
+          children: (
+            <>
+              <p>{diary.diaryDate}</p>
+              <div dangerouslySetInnerHTML={{ __html: entryList }} />
+            </>
+          )
+        };
+      })
+    : [];
+
   return (
     <ConfigProvider
-    theme={{
-      token:{
-        colorText:'#000'
-      },
-      components: {
-        Timeline: {
-         tailColor:'rgb(113,128,150,0.1)',
-         tailWidth:2,
+      theme={{
+        token: {
+          colorText: '#000'
         },
-      },
-    }}
-  >
-    <div>
-      <Timeline items={timelineItems} className='ml-20'/>;
-      <div ref={ref} className='h-0'></div>
-    </div>
+        components: {
+          Timeline: {
+            tailColor: 'rgb(113,128,150,0.1)',
+            tailWidth: 2,
+          },
+        },
+      }}
+    >
+      <div>
+        {diaryList.length > 0 ? (
+          <Timeline items={timelineItems} className='ml-20' />
+        ) : (
+          <p>{t('noContentMsg')}</p>
+        )}
+        <div ref={ref} className='h-0'></div>
+      </div>
     </ConfigProvider>
   );
-}
+};
 
 export default TimelinePage;

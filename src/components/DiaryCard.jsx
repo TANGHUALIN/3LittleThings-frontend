@@ -9,9 +9,9 @@ const DiaryCard=({contentList,handleDeleteDiary,handleEditDiary,clickHeart,favor
         <div className={layoutClassName}>
         {contentList}
       <div className="flex">
-       <div onClick={handleDeleteDiary}><DeleteOutlined /></div>
-      <div className="ml-2" onClick={handleEditDiary}> <EditOutlined /></div>
-      <div className="ml-auto" onClick={clickHeart}>{favoriteState?<HeartFilled/>:<HeartOutlined />}</div> 
+       <div onClick={handleDeleteDiary}><DeleteOutlined className="cursor-pointer hover:text-slate-400" /></div>
+      <div className="ml-2" onClick={handleEditDiary}> <EditOutlined className="cursor-pointer hover:text-slate-400"/></div>
+      <div className="ml-auto" onClick={clickHeart}>{favoriteState?<HeartFilled className="cursor-pointer "/>:<HeartOutlined className="cursor-pointer"/>}</div> 
        </div>
        </div>
     )
