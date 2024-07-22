@@ -1,4 +1,4 @@
-# 3LittleThings-backend
+# 3LittleThings-frontend
 www.3littlethings.top <br>
 
 # フロントエンド部分
